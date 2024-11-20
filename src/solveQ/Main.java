@@ -12,5 +12,5 @@ public class Main extends JFrame {
     public static void main(String[] args) {
         Main frame = new Main();
     }
-    //test
+    //찐 마지막 test
 }
