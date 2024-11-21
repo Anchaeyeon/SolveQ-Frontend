@@ -44,6 +44,24 @@ public class keyword extends JFrame {
                 int y = (height - imgHeight) / 4;
                 g.drawImage(choice_k, x, y, this);
             }
+
+            g.setColor(Color.white);
+            // 사랑 키워드 사각형
+            g.fillRoundRect(180, 350, 195, 240, 10, 10); //둥근 모서리 사각형 채우기
+            g.drawRoundRect(180, 350, 195, 240, 10, 10); //모서리가 둥근 사각형 그리기
+            // 우정 키워드 사각형
+            g.fillRoundRect(425, 350, 195, 240, 10, 10);
+            g.drawRoundRect(425, 350, 195, 240, 10, 10);
+            // 가족 키워드 사각형
+            g.fillRoundRect(665, 350, 195, 240, 10, 10);
+            g.drawRoundRect(665, 350, 195, 240, 10, 10);
+            // 학교 키워드 사각형
+            g.fillRoundRect(905, 350, 195, 240, 10, 10);
+            g.drawRoundRect(905, 350, 195, 240, 10, 10);
+            // 기타 키워드 사각형
+            g.fillRoundRect(1145, 350, 195, 240, 10, 10);
+            g.drawRoundRect(1145, 350, 195, 240, 10, 10);
+
         }
 
         private BufferedImage choice_k;
