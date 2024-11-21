@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class start extends JFrame {
     public start() {
         setTitle("start화면");
-        setSize(1440, 1024); // 프레임 크기
+        setSize(1920, 1080); // 프레임 크기
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
 
         // 커스텀 패널 추가
