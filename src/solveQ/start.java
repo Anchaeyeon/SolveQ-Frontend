@@ -30,9 +30,7 @@ public class start extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
-
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -57,6 +55,18 @@ public class start extends JFrame {
                 int x = (width - imgWidth) / 2; // 화면 가운데 x 좌표
                 int y = (height - imgHeight) / 2; // 화면 가운데 y 좌표
                 g.drawImage(image, x, y, this);
+
+                // 텍스트 그리기 (이미지 아래에)
+                String text = "로고를 클릭해주세요";
+                Font font = new Font("맑은 고딕", Font.BOLD, 24);
+                g2d.setFont(font);
+                g2d.setColor(Color.WHITE);
+                FontMetrics metrics = g2d.getFontMetrics(font);
+
+                int textWidth = metrics.stringWidth(text);
+                int textX = (width - textWidth) / 2; // 텍스트 가운데 x 좌표
+                int textY = y + imgHeight + 50; // 이미지 아래로 약간 떨어진 위치
+                g2d.drawString(text, textX, textY);
             }
         }
     }
