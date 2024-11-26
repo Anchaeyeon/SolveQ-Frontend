@@ -45,23 +45,49 @@ public class keyword extends JFrame {
                 g.drawImage(choice_k, x, y, this);
             }
 
-            g.setColor(Color.white);
-            // 사랑 키워드 사각형
-            g.fillRoundRect(180, 350, 195, 240, 10, 10); //둥근 모서리 사각형 채우기
-            g.drawRoundRect(180, 350, 195, 240, 10, 10); //모서리가 둥근 사각형 그리기
-            // 우정 키워드 사각형
-            g.fillRoundRect(425, 350, 195, 240, 10, 10);
-            g.drawRoundRect(425, 350, 195, 240, 10, 10);
-            // 가족 키워드 사각형
-            g.fillRoundRect(665, 350, 195, 240, 10, 10);
-            g.drawRoundRect(665, 350, 195, 240, 10, 10);
-            // 학교 키워드 사각형
-            g.fillRoundRect(905, 350, 195, 240, 10, 10);
-            g.drawRoundRect(905, 350, 195, 240, 10, 10);
-            // 기타 키워드 사각형
-            g.fillRoundRect(1145, 350, 195, 240, 10, 10);
-            g.drawRoundRect(1145, 350, 195, 240, 10, 10);
+            Font pretendardFont;
+            try {
+                pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
+                pretendardFont = pretendardFont.deriveFont(30f); // 글꼴 크기 설정
+            } catch (FontFormatException | IOException e) {
+                e.printStackTrace();
+                pretendardFont = new Font("Serif", Font.BOLD, 30); // 대체 폰트
+            }
+            g.setFont(pretendardFont);
 
+            // 사랑 키워드 사각형
+            g.setColor(Color.white);
+            g.fillRoundRect(180, 350, 195, 240, 10, 10); //둥근 모서리 사각형 채우기
+            drawCenteredString(g, "사랑", 180, 350, 195, 240, Color.decode("#7D20D4"));
+
+            // 우정 키워드 사각형
+            g.setColor(Color.white);
+            g.fillRoundRect(425, 350, 195, 240, 10, 10);
+            drawCenteredString(g, "우정", 425, 350, 195, 240, Color.decode("#7D20D4"));
+
+            // 가족 키워드 사각형
+            g.setColor(Color.white);
+            g.fillRoundRect(665, 350, 195, 240, 10, 10);
+            drawCenteredString(g, "가족", 665, 350, 195, 240, Color.decode("#7D20D4"));
+
+            // 학교 키워드 사각형
+            g.setColor(Color.white);
+            g.fillRoundRect(905, 350, 195, 240, 10, 10);
+            drawCenteredString(g, "학교", 905, 350, 195, 240, Color.decode("#7D20D4"));
+
+            // 기타 키워드 사각형
+            g.setColor(Color.white);
+            g.fillRoundRect(1145, 350, 195, 240, 10, 10);
+            drawCenteredString(g, "기타", 1145, 350, 195, 240, Color.decode("#7D20D4"));
+
+        }
+
+        private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height, Color textColor) {
+            g.setColor(textColor); // 글씨 색 설정
+            FontMetrics metrics = g.getFontMetrics();
+            int textX = x + (width - metrics.stringWidth(text)) / 2;
+            int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() + 40;
+            g.drawString(text, textX, textY);
         }
 
         private BufferedImage choice_k;
