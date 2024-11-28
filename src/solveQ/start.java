@@ -49,26 +49,38 @@ public class start extends JFrame {
             g2d.fillRect(0, 0, width, height); // 그라데이션으로 채우기
 
             // 이미지 그리기 (중앙 정렬)
+            int imgBottomY = 0; // 이미지 하단의 y 좌표를 저장할 변수
             if (image != null) {
                 int imgWidth = image.getWidth();
                 int imgHeight = image.getHeight();
                 int x = (width - imgWidth) / 2; // 화면 가운데 x 좌표
                 int y = (height - imgHeight) / 2; // 화면 가운데 y 좌표
+                imgBottomY = y + imgHeight; // 이미지의 하단 y 좌표 계산
                 g.drawImage(image, x, y, this);
-
-                // 텍스트 그리기 (이미지 아래에)
-                String text = "로고를 클릭해주세요";
-                Font font = new Font("맑은 고딕", Font.BOLD, 24);
-                g2d.setFont(font);
-                g2d.setColor(Color.WHITE);
-                FontMetrics metrics = g2d.getFontMetrics(font);
-
-                int textWidth = metrics.stringWidth(text);
-                int textX = (width - textWidth) / 2; // 텍스트 가운데 x 좌표
-                int textY = y + imgHeight + 50; // 이미지 아래로 약간 떨어진 위치
-                g2d.drawString(text, textX, textY);
             }
+
+            // 글꼴 설정
+            Font pretendardFont;
+            try {
+                pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
+                pretendardFont = pretendardFont.deriveFont(30f); // 글꼴 크기 설정
+            } catch (FontFormatException | IOException e) {
+                e.printStackTrace();
+                pretendardFont = new Font("Serif", Font.BOLD, 30); // 대체 폰트
+            }
+            g.setFont(pretendardFont);
+
+            // 텍스트를 이미지 아래에 배치
+            drawCenteredString(g, "로고를 클릭해주세요", 0, imgBottomY + 20, width, height - imgBottomY - 20, Color.white);
         }
+    }
+
+    private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height, Color textColor) {
+        g.setColor(textColor); // 글씨 색 설정
+        FontMetrics metrics = g.getFontMetrics();
+        int textX = x + (width - metrics.stringWidth(text)) / 2;
+        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 170; // 위치를 살짝 올리기 위해 -10 추가
+        g.drawString(text, textX, textY);
     }
 
     public static void main(String[] args) {
