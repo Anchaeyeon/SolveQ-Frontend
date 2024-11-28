@@ -71,12 +71,12 @@ public class start extends JFrame {
             g.setFont(pretendardFont);
 
             // 텍스트를 이미지 아래에 배치
-            drawCenteredString(g, "로고를 클릭해주세요", 0, imgBottomY + 20, width, height - imgBottomY - 20, Color.white);
+            drawCenteredString(g, "로고를 클릭해주세요", 0, imgBottomY + 20, width, height - imgBottomY - 20);
         }
     }
 
-    private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height, Color textColor) {
-        g.setColor(textColor); // 글씨 색 설정
+    private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height) {
+        g.setColor(Color.white); // 글씨 색 설정
         FontMetrics metrics = g.getFontMetrics();
         int textX = x + (width - metrics.stringWidth(text)) / 2;
         int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 170; // 위치를 살짝 올리기 위해 -10 추가
