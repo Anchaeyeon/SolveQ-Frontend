@@ -37,14 +37,6 @@ public class keyword extends JFrame {
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, width, height); // 그라데이션으로 채우기
 
-            if (choice_k != null) {
-                int imgWidth = choice_k.getWidth();
-                int imgHeight = choice_k.getHeight();
-                int x = (width - imgWidth) / 2;
-                int y = (height - imgHeight) / 4;
-                g.drawImage(choice_k, x, y, this);
-            }
-
             Font pretendardFont;
             try {
                 pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
@@ -55,51 +47,56 @@ public class keyword extends JFrame {
             }
             g.setFont(pretendardFont);
 
+            choiceKeyword(g, "키워드를 선택해주세요.", 670, 50, 195, 240);
+
             // 사랑 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(180, 350, 195, 240, 10, 10); //둥근 모서리 사각형 채우기
-            drawCenteredString(g, "사랑", 180, 350, 195, 240, Color.decode("#7D20D4"));
+            drawCenteredString(g, "사랑", 180, 350, 195, 240);
 
             // 우정 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(425, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "우정", 425, 350, 195, 240, Color.decode("#7D20D4"));
+            drawCenteredString(g, "우정", 425, 350, 195, 240);
 
             // 가족 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(665, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "가족", 665, 350, 195, 240, Color.decode("#7D20D4"));
+            drawCenteredString(g, "가족", 665, 350, 195, 240);
 
             // 학교 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(905, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "학교", 905, 350, 195, 240, Color.decode("#7D20D4"));
+            drawCenteredString(g, "학교", 905, 350, 195, 240);
 
             // 기타 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(1145, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "기타", 1145, 350, 195, 240, Color.decode("#7D20D4"));
+            drawCenteredString(g, "기타", 1145, 350, 195, 240);
 
         }
 
-        private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height, Color textColor) {
-            g.setColor(textColor); // 글씨 색 설정
+        private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height) {
+            g.setColor(Color.decode("#7D20D4")); // 글씨 색 설정
             FontMetrics metrics = g.getFontMetrics();
             int textX = x + (width - metrics.stringWidth(text)) / 2;
             int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() + 40;
             g.drawString(text, textX, textY);
         }
 
-        private BufferedImage choice_k;
-        // 생성자에서 이미지 로드
-        public GradientPanel() {
-            try {
-                // 이미지 파일 경로를 입력하세요.
-                choice_k = ImageIO.read(new File("img/choice_keyword.png"));
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        private void choiceKeyword(Graphics g, String text, int x, int y, int width, int height) {
+            g.setColor(Color.white); // 글씨 색 설정
+
+            Font originalFont = g.getFont();
+            Font newFont = originalFont.deriveFont(50f); // 원하는 크기 입력
+            g.setFont(newFont);
+
+            FontMetrics metrics = g.getFontMetrics();
+            int textX = x + (width - metrics.stringWidth(text)) / 2;
+            int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() + 40;
+            g.drawString(text, textX, textY);
+
+            g.setFont(originalFont);
         }
     }
 
