@@ -1,6 +1,8 @@
 package src.solveQ;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +23,19 @@ public class keyword extends JFrame {
 
     // 그라데이션을 그리는 커스텀 패널 클래스
     class GradientPanel extends JPanel {
+        //이미지
         private BufferedImage loveImage;
         private BufferedImage friendshipImage;
         private BufferedImage familyImage;
         private BufferedImage schoolImage;
         private BufferedImage otherImage;
+
+        // 클릭 영역
+        private final Rectangle loveRect = new Rectangle(180, 350, 195, 240);
+        private final Rectangle friendshipRect = new Rectangle(425, 350, 195, 240);
+        private final Rectangle familyRect = new Rectangle(665, 350, 195, 240);
+        private final Rectangle schoolRect = new Rectangle(905, 350, 195, 240);
+        private final Rectangle otherRect = new Rectangle(1145, 350, 195, 240);
 
         public GradientPanel() {
             try {
@@ -38,6 +48,37 @@ public class keyword extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            // 마우스 클릭 이벤트 추가
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    handleMouseClick(e.getPoint());
+                }
+            });
+        }
+
+        private void handleMouseClick(Point point) {
+            if (loveRect.contains(point)) {
+                new lovePage(); // 사랑 페이지로 이동
+            } else if (friendshipRect.contains(point)) {
+                new friendshipPage(); // 우정 페이지로 이동
+            } else if (familyRect.contains(point)) {
+                new familyPage(); // 가족 페이지로 이동
+            } else if (schoolRect.contains(point)) {
+                new schoolPage(); // 학교 페이지로 이동
+            } else if (otherRect.contains(point)) {
+                new otherPage(); // 기타 페이지로 이동
+            }
+        }
+
+        private void openNewPage(String title) {
+            // 새 페이지를 위한 JFrame 생성
+            JFrame newPage = new JFrame(title);
+            newPage.setSize(800, 600);
+            newPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 닫으면 현재 페이지만 닫음
+            newPage.add(new JLabel(title, SwingConstants.CENTER), BorderLayout.CENTER);
+            newPage.setVisible(true);
         }
 
         @Override
