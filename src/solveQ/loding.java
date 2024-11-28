@@ -84,7 +84,7 @@ public class loding extends JFrame {
 
         FontMetrics metrics = g.getFontMetrics();
         int textX = x + (width - metrics.stringWidth(text)) / 2;
-        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 200; // 위치를 살짝 올리기 위해 -10 추가
+        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent()-160; // 위치를 살짝 올리기 위해 -10 추가
         g.drawString(text, textX, textY);
 
         g.setFont(originalFont);
