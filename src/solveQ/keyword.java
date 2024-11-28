@@ -21,6 +21,25 @@ public class keyword extends JFrame {
 
     // 그라데이션을 그리는 커스텀 패널 클래스
     class GradientPanel extends JPanel {
+        private BufferedImage loveImage;
+        private BufferedImage friendshipImage;
+        private BufferedImage familyImage;
+        private BufferedImage schoolImage;
+        private BufferedImage otherImage;
+
+        public GradientPanel() {
+            try {
+                // 배경 이미지와 각 키워드 이미지를 로드
+                loveImage = ImageIO.read(new File("img/love.png"));
+                friendshipImage = ImageIO.read(new File("img/friendship.png"));
+                familyImage = ImageIO.read(new File("img/family.png"));
+                schoolImage = ImageIO.read(new File("img/school.png"));
+                otherImage = ImageIO.read(new File("img/other.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -52,32 +71,38 @@ public class keyword extends JFrame {
             // 사랑 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(180, 350, 195, 240, 10, 10); //둥근 모서리 사각형 채우기
-            drawCenteredString(g, "사랑", 180, 350, 195, 240);
+            drawCenteredString(g, "사랑", loveImage, 180, 350, 195, 240);
 
             // 우정 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(425, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "우정", 425, 350, 195, 240);
+            drawCenteredString(g, "우정", friendshipImage, 425, 350, 195, 240);
 
             // 가족 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(665, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "가족", 665, 350, 195, 240);
+            drawCenteredString(g, "가족", familyImage, 665, 350, 195, 240);
 
             // 학교 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(905, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "학교", 905, 350, 195, 240);
+            drawCenteredString(g, "학교", schoolImage, 905, 350, 195, 240);
 
             // 기타 키워드 사각형
             g.setColor(Color.white);
             g.fillRoundRect(1145, 350, 195, 240, 10, 10);
-            drawCenteredString(g, "기타", 1145, 350, 195, 240);
-
+            drawCenteredString(g, "기타", otherImage, 1145, 350, 195, 240);
         }
 
-        private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height) {
+        private void drawCenteredString(Graphics g, String text, BufferedImage image, int x, int y, int width, int height) {
             g.setColor(Color.decode("#7D20D4")); // 글씨 색 설정
+            if (image != null) {
+                int imgWidth = image.getWidth();
+                int imgHeight = image.getHeight();
+                int imgX = x + (width - imgWidth) / 2;
+                int imgY = y + (height - imgHeight) / 2 - 30; // 이미지 위치 조정
+                g.drawImage(image, imgX, imgY, this);
+            }
             FontMetrics metrics = g.getFontMetrics();
             int textX = x + (width - metrics.stringWidth(text)) / 2;
             int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() + 40;
