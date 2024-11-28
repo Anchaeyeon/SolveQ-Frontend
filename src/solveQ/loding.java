@@ -6,9 +6,9 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-public class start extends JFrame {
-    public start() {
-        setTitle("start화면");
+public class loding extends JFrame {
+    public loding() {
+        setTitle("loding");
         setSize(1920, 1080); // 프레임 크기
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
 
@@ -26,7 +26,7 @@ public class start extends JFrame {
         public GradientPanel() {
             try {
                 // 이미지 파일 경로를 입력하세요.
-                image = ImageIO.read(new File("img/solveQ.png"));
+                image = ImageIO.read(new File("img/LODING.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -71,19 +71,26 @@ public class start extends JFrame {
             g.setFont(pretendardFont);
 
             // 텍스트를 이미지 아래에 배치
-            drawCenteredString(g, "로고를 클릭해주세요", 0, imgBottomY + 20, width, height - imgBottomY - 20);
+            drawCenteredString(g, "잠시만 기다려 주세요.", 0, imgBottomY + 20, width, height - imgBottomY - 20);
         }
     }
 
     private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height) {
         g.setColor(Color.white); // 글씨 색 설정
+
+        Font originalFont = g.getFont();
+        Font newFont = originalFont.deriveFont(25f); // 원하는 크기 입력
+        g.setFont(newFont);
+
         FontMetrics metrics = g.getFontMetrics();
         int textX = x + (width - metrics.stringWidth(text)) / 2;
-        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 170; // 위치를 살짝 올리기 위해 -10 추가
+        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 200; // 위치를 살짝 올리기 위해 -10 추가
         g.drawString(text, textX, textY);
+
+        g.setFont(originalFont);
     }
 
     public static void main(String[] args) {
-        new start();
+        new loding(); // 올바른 클래스 이름 사용
     }
 }
