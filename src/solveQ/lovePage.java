@@ -5,6 +5,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class lovePage extends JFrame {
     private JTextArea inputField; // 입력을 받을 텍스트 필드
@@ -51,17 +53,25 @@ public class lovePage extends JFrame {
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, width, height);
 
-            Font pretendardFont;
+            // 날짜 표시
+            g.setColor(Color.WHITE);
+            Font dateFont;
             try {
-                pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
-                pretendardFont = pretendardFont.deriveFont(30f);
+                dateFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
+                dateFont = dateFont.deriveFont(30f);
             } catch (Exception e) {
                 e.printStackTrace();
-                pretendardFont = new Font("Serif", Font.BOLD, 30);
+                dateFont = new Font("Serif", Font.BOLD, 30);
             }
-            g.setFont(pretendardFont);
+            g.setFont(dateFont);
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String currentDate = dateFormat.format(new Date());
+            g.drawString(currentDate, 670, 120); // 날짜 위치 설정
+
+            g.setFont(dateFont);
             worryWriteText(g, "당신의 고민을 적어주세요.", 670, 50, 195, 170);
+
             // 사각형 그리기
             g.setColor(Color.white);
             g.fillRoundRect(inputRect.x, inputRect.y, inputRect.width, inputRect.height, 20, 20);
@@ -81,6 +91,7 @@ public class lovePage extends JFrame {
 
             g.setFont(originalFont);
         }
+
         private void showInputField() {
             // 입력 필드가 이미 있으면 새로 생성하지 않음
             if (inputField == null) {
