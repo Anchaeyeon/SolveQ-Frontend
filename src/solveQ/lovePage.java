@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,34 +56,39 @@ public class lovePage extends JFrame {
 
             // 날짜 표시
             g.setColor(Color.WHITE);
-            Font dateFont;
+            Font font;
             try {
-                dateFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
-                dateFont = dateFont.deriveFont(30f);
+                font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
+                font = font.deriveFont(30f);
             } catch (Exception e) {
                 e.printStackTrace();
-                dateFont = new Font("Serif", Font.BOLD, 30);
+                font = new Font("Serif", Font.BOLD, 30);
             }
-            g.setFont(dateFont);
+            g.setFont(font);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String currentDate = dateFormat.format(new Date());
             g.drawString(currentDate, 670, 120); // 날짜 위치 설정
 
-            g.setFont(dateFont);
-            worryWriteText(g, "당신의 고민을 적어주세요.", 670, 50, 195, 170);
-
-            // 사각형 그리기
+            // 입력할 사각형
             g.setColor(Color.white);
             g.fillRoundRect(inputRect.x, inputRect.y, inputRect.width, inputRect.height, 20, 20);
+
+            // 해결책 보는 버튼 사각형
+            g.setColor(Color.white);
+            g.fillRoundRect(600, 680, 300, 60, 60, 60);
+
+            g.setFont(font);
+            worryWriteText(g, "당신의 고민을 적어주세요.", 670, 50, 195, 170, Color.white, 50f);
+            worryWriteText(g, "해결책 보기", 650, 660, 200, 20, Color.decode("#41116D"), 30f);
         }
 
-        private void worryWriteText(Graphics g, String text, int x, int y, int width, int height) {
-            g.setColor(Color.white);
-
+        private void worryWriteText(Graphics g, String text, int x, int y, int width, int height, Color color,  float fontSize) {
             Font originalFont = g.getFont();
-            Font newFont = originalFont.deriveFont(50f);
+            Font newFont = originalFont.deriveFont(fontSize); // 매개변수로 받은 글씨 크기 설정
             g.setFont(newFont);
+
+            g.setColor(color);
 
             FontMetrics metrics = g.getFontMetrics();
             int textX = x + (width - metrics.stringWidth(text)) / 2;
