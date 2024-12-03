@@ -1,14 +1,17 @@
 package src.solveQ;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class keyword extends JPanel {
-    //이미지
+public class keyword extends JPanel implements MouseListener {
+    private Main mainFrame;
+    // 이미지
     private BufferedImage loveImage;
     private BufferedImage friendshipImage;
     private BufferedImage familyImage;
@@ -22,9 +25,11 @@ public class keyword extends JPanel {
     private final Rectangle schoolRect = new Rectangle(905, 350, 195, 240);
     private final Rectangle otherRect = new Rectangle(1145, 350, 195, 240);
 
-    public keyword() {
+    public keyword(Main mainFrame) {
+        this.mainFrame = mainFrame;
         // 패널 기본 설정
         setPreferredSize(new Dimension(1920, 1080));
+        addMouseListener(this);
 
         try {
             // 배경 이미지와 각 키워드 이미지를 로드
@@ -37,6 +42,38 @@ public class keyword extends JPanel {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Point p = e.getPoint();
+
+        if (loveRect.contains(p)) {
+            // 사랑 고민 적는 페이지로 전환
+            mainFrame.showLoveScreen(); // Main 클래스의 메서드 호출
+            System.out.println("사랑 페이지로 이동");
+        } else if (friendshipRect.contains(p)) {
+            System.out.println("우정 페이지로 이동");
+            // 다른 페이지로 전환하는 코드 작성
+        } else if (familyRect.contains(p)) {
+            System.out.println("가족 페이지로 이동");
+            // 다른 페이지로 전환하는 코드 작성
+        } else if (schoolRect.contains(p)) {
+            System.out.println("학교 페이지로 이동");
+            // 다른 페이지로 전환하는 코드 작성
+        } else if (otherRect.contains(p)) {
+            System.out.println("기타 페이지로 이동");
+            // 다른 페이지로 전환하는 코드 작성
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -68,7 +105,7 @@ public class keyword extends JPanel {
 
         // 사랑 키워드 사각형
         g.setColor(Color.white);
-        g.fillRoundRect(180, 350, 195, 240, 10, 10); //둥근 모서리 사각형 채우기
+        g.fillRoundRect(180, 350, 195, 240, 10, 10); // 둥근 모서리 사각형 채우기
         drawCenteredString(g, "사랑", loveImage, 180, 350, 195, 240);
 
         // 우정 키워드 사각형

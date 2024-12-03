@@ -20,7 +20,7 @@ public class Main extends JFrame {
         cardPanel.add(startScreen, "Start");
 
         // keyword 화면 추가
-        keyword keywordScreen = new keyword();
+        keyword keywordScreen = new keyword(this);
         cardPanel.add(keywordScreen, "Keyword");
 
         // lovePage 추가
@@ -38,6 +38,10 @@ public class Main extends JFrame {
     // 화면 전환 메서드
     public void showKeywordScreen() {
         cardLayout.show(cardPanel, "Keyword");
+    }
+
+    public void showLoveScreen() {
+        cardLayout.show(cardPanel, "Love");
     }
 
     public static void main(String[] args) {

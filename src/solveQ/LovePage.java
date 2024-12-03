@@ -37,13 +37,6 @@ public class LovePage extends JPanel {
                 }
             }
         });
-
-        // 패널을 JFrame에 추가
-        JFrame frame = new JFrame("LovePage");
-        frame.setSize(1920, 1080);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(this);
-        frame.setVisible(true);
     }
 
     @Override
@@ -125,9 +118,5 @@ public class LovePage extends JPanel {
             inputField.setVisible(true);
             inputField.requestFocus();
         }
-    }
-
-    public static void main(String[] args) {
-        new LovePage();
     }
 }
