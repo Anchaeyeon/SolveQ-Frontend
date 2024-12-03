@@ -3,15 +3,14 @@ package src.solveQ;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class Main extends JFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
-    public MainFrame() {
-        setTitle("SolveQ Application");
-        setSize(1920, 1080);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // 창을 화면 중앙에 위치시킴
+    public Main() {
+        JFrame frame = new JFrame("SolveQ");
+        frame.setSize(1920, 1080);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
@@ -24,19 +23,21 @@ public class MainFrame extends JFrame {
         keyword keywordScreen = new keyword();
         cardPanel.add(keywordScreen, "Keyword");
 
-        // 패널을 프레임의 콘텐츠로 설정
-        add(cardPanel);
-        setVisible(true);
+        // CardPanel을 프레임에 설정
+        frame.setContentPane(cardPanel);
 
         // 처음에 start 화면을 보여줌
         cardLayout.show(cardPanel, "Start");
+
+        // 화면 표시
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        new MainFrame();
+        new Main();
     }
 
-    // 필요한 경우 화면 전환을 위한 메서드
+    // 화면 전환 메서드
     public void showKeywordScreen() {
         cardLayout.show(cardPanel, "Keyword");
     }
