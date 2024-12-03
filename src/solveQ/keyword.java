@@ -62,6 +62,7 @@ public class keyword extends JPanel implements MouseListener {
             // 다른 페이지로 전환하는 코드 작성
         }
         else if (schoolRect.contains(p)) {
+            mainFrame.showSchoolScreen();
             System.out.println("학교 페이지로 이동");
             // 다른 페이지로 전환하는 코드 작성
         }

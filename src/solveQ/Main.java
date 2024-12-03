@@ -35,6 +35,10 @@ public class Main extends JFrame {
         FamilyPage familyScreen = new FamilyPage();
         cardPanel.add(familyScreen, "Family");
 
+        // 학교 페이지 추가
+        SchoolPage schoolScreen = new SchoolPage();
+        cardPanel.add(schoolScreen, "School");
+
         setContentPane(cardPanel);
 
         // 처음에 start 화면을 보여줌
@@ -57,6 +61,9 @@ public class Main extends JFrame {
     }
     public void showFamilyScreen() {
         cardLayout.show(cardPanel, "Family");
+    }
+    public void showSchoolScreen() {
+        cardLayout.show(cardPanel, "School");
     }
 
     public static void main(String[] args) {
