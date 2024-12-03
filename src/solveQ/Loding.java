@@ -6,8 +6,8 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-public class loding extends JFrame {
-    public loding() {
+public class Loding extends JFrame {
+    public Loding() {
         setTitle("loding");
         setSize(1920, 1080); // 프레임 크기
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
@@ -91,6 +91,6 @@ public class loding extends JFrame {
     }
 
     public static void main(String[] args) {
-        new loding(); // 올바른 클래스 이름 사용
+        new Loding(); // 올바른 클래스 이름 사용
     }
 }

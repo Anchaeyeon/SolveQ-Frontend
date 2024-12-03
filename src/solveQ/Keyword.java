@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class keyword extends JPanel implements MouseListener {
+public class Keyword extends JPanel implements MouseListener {
     private Main mainFrame;
     // 이미지
     private BufferedImage loveImage;
@@ -25,7 +25,7 @@ public class keyword extends JPanel implements MouseListener {
     private final Rectangle schoolRect = new Rectangle(905, 350, 195, 240);
     private final Rectangle otherRect = new Rectangle(1145, 350, 195, 240);
 
-    public keyword(Main mainFrame) {
+    public Keyword(Main mainFrame) {
         this.mainFrame = mainFrame;
         // 패널 기본 설정
         setPreferredSize(new Dimension(1920, 1080));

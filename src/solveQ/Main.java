@@ -20,7 +20,7 @@ public class Main extends JFrame {
         cardPanel.add(startScreen, "Start");
 
         // keyword 화면 추가
-        keyword keywordScreen = new keyword(this);
+        Keyword keywordScreen = new Keyword(this);
         cardPanel.add(keywordScreen, "Keyword");
 
         // 사랑 페이지 추가
