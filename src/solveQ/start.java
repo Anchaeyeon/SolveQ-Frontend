@@ -2,22 +2,36 @@ package src.solveQ;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
 public class start extends JPanel {
     private BufferedImage image;
+    private Main mainFrame; // Main 클래스의 참조
 
     // 생성자에서 초기화
-    public start() {
+    public start(Main mainFrame) {
+        this.mainFrame = mainFrame; // Main 클래스 참조 저장
+
         // 이미지 로드
         try {
-            // 이미지 파일 경로를 입력하세요.
-            image = ImageIO.read(new File("img/solveQ.png"));
+            image = ImageIO.read(new File("img/solveQ.png")); // 이미지 파일 경로
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // 클릭 이벤트 추가
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (isImageClicked(e.getX(), e.getY())) {
+                    // Main 클래스의 화면 전환 메서드 호출
+                    mainFrame.showKeywordScreen();
+                }
+            }
+        });
     }
 
     @Override
@@ -59,16 +73,25 @@ public class start extends JPanel {
         g.setFont(pretendardFont);
 
         // 텍스트를 이미지 아래에 배치
-        drawCenteredString(g, "로고를 클릭해주세요", 0, imgBottomY + 20, width, height - imgBottomY - 20);
-    }
-
-    private void drawCenteredString(Graphics g, String text, int x, int y, int width, int height) {
-        g.setColor(Color.white); // 글씨 색 설정
+        g.setColor(Color.WHITE);
         FontMetrics metrics = g.getFontMetrics();
-        int textX = x + (width - metrics.stringWidth(text)) / 2;
-        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 170; // 위치를 살짝 올리기 위해 -10 추가
+        String text = "로고를 클릭해주세요";
+        int textX = (width - metrics.stringWidth(text)) / 2;
+        int textY = imgBottomY + metrics.getHeight() + 10; // 이미지 아래 위치
         g.drawString(text, textX, textY);
     }
 
+    private boolean isImageClicked(int mouseX, int mouseY) {
+        if (image != null) {
+            int width = getWidth();
+            int height = getHeight();
+            int imgX = (width - image.getWidth()) / 2;
+            int imgY = (height - image.getHeight()) / 2;
 
+            // 클릭 좌표가 이미지 영역 안에 있는지 확인
+            return mouseX >= imgX && mouseX <= imgX + image.getWidth()
+                    && mouseY >= imgY && mouseY <= imgY + image.getHeight();
+        }
+        return false;
+    }
 }
