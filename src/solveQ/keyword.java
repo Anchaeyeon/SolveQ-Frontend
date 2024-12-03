@@ -57,6 +57,7 @@ public class keyword extends JPanel implements MouseListener {
             System.out.println("우정 페이지로 이동");
         }
         else if (familyRect.contains(p)) {
+            mainFrame.showFamilyScreen();
             System.out.println("가족 페이지로 이동");
             // 다른 페이지로 전환하는 코드 작성
         }

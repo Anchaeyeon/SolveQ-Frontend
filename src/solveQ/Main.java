@@ -31,6 +31,10 @@ public class Main extends JFrame {
         FriendshipPage friendshipScreen = new FriendshipPage();
         cardPanel.add(friendshipScreen, "Friendship");
 
+        // 가족 페이지 추가
+        FamilyPage familyScreen = new FamilyPage();
+        cardPanel.add(familyScreen, "Family");
+
         setContentPane(cardPanel);
 
         // 처음에 start 화면을 보여줌
@@ -50,6 +54,9 @@ public class Main extends JFrame {
 
     public void showFriendshipScreen() {
         cardLayout.show(cardPanel, "Friendship");
+    }
+    public void showFamilyScreen() {
+        cardLayout.show(cardPanel, "Family");
     }
 
     public static void main(String[] args) {
