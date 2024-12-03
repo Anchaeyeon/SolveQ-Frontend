@@ -43,6 +43,11 @@ public class Main extends JFrame {
         OtherPage otherScreen = new OtherPage();
         cardPanel.add(otherScreen, "Other");
 
+        // Main 클래스의 생성자에서 DiaryCover 추가
+        DiaryCover diaryCoverScreen = new DiaryCover();
+        cardPanel.add(diaryCoverScreen, "DiaryCover");
+
+
         setContentPane(cardPanel);
 
         // 처음에 start 화면을 보여줌
@@ -70,6 +75,11 @@ public class Main extends JFrame {
     public void showOtherlScreen() {
         cardLayout.show(cardPanel, "Other");
     }
+
+    public void showDiaryCoverScreen() {
+        cardLayout.show(cardPanel, "DiaryCover");
+    }
+
 
     public static void main(String[] args) {
         new Main();

@@ -2,23 +2,22 @@ package src.solveQ;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class DiaryCover {
-    public static void main(String[] args) {
-        // 프레임 생성
-        JFrame frame = new JFrame("Diary Cover");
-        frame.setSize(1920, 1080);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class DiaryCover extends JPanel {
+    private DiaryPanel diaryPanel; // DiaryPanel 인스턴스
 
-        // 커스텀 패널 생성
-        DiaryPanel panel = new DiaryPanel();
-        frame.setContentPane(panel);
-        frame.setVisible(true);
+    public DiaryCover() {
+        // DiaryPanel 생성 및 추가
+        diaryPanel = new DiaryPanel();
+        this.setLayout(new BorderLayout());
+        this.add(diaryPanel, BorderLayout.CENTER);
     }
 
+    // DiaryPanel 클래스 정의
     static class DiaryPanel extends JPanel {
         private BufferedImage bookImg;
         private BufferedImage rogoImg;

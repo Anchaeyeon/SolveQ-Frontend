@@ -37,6 +37,26 @@ public class LovePage extends JPanel {
                 }
             }
         });
+
+        // LovePage 클래스의 마우스 클릭 이벤트 리스너
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (new Rectangle(280, 250, 954, 400).contains(e.getPoint())) {
+                    showInputField();
+                }
+                // '해결책 보기' 버튼 클릭 시 DiaryCover로 전환
+                if (new Rectangle(600, 680, 300, 60).contains(e.getPoint())) {
+                    // Main 클래스 인스턴스를 가져와서 화면 전환 호출
+                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(LovePage.this);
+                    if (topFrame instanceof Main) {
+                        Main mainFrame = (Main) topFrame;
+                        mainFrame.showDiaryCoverScreen();
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
