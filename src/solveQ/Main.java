@@ -43,10 +43,9 @@ public class Main extends JFrame {
         OtherPage otherScreen = new OtherPage();
         cardPanel.add(otherScreen, "Other");
 
-        // Main 클래스의 생성자에서 DiaryCover 추가
+        // 키워드 선택해서 각각 고민을 적고 해결책 보기를 누르면 DiaryCover로 이동
         DiaryCover diaryCoverScreen = new DiaryCover();
         cardPanel.add(diaryCoverScreen, "DiaryCover");
-
 
         setContentPane(cardPanel);
 
