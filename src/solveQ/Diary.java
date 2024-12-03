@@ -39,8 +39,6 @@ public class Diary {
                 image4 = ImageIO.read(new File("img/solveQ2.png"));
                 image5 = ImageIO.read(new File("img/Line2.png"));
                 image6 = ImageIO.read(new File("img/round2.png"));
-                image7 = ImageIO.read(new File("img/Line2.png"));
-                image8 = ImageIO.read(new File("img/round2.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -56,18 +54,18 @@ public class Diary {
             g2d.fillRect(0, 0, getWidth(), getHeight());
 
             // 이미지 그리기
-            drawImage(g, image, 225, 100, 0.9);
-            drawImage(g, image2, 805, 100, 0.9);
-            drawImageWithStretch(g, image3, 803, 100, 1.0, 0.23);
-            drawImage(g, image4, 1270, 130, 0.9);
-            drawImage(g, image5, 850, 500, 0.9);
-            drawImage(g, image6, 929, 494, 0.9);
-            drawImage(g, image7, 1250, 500, 0.9);
-            drawImage(g, image8, 1220, 494, 0.9);
+            drawImage(g, image, 252, 60, 0.8); 
+            drawImage(g, image2, 768, 60, 0.8);
+            drawImageWithStretch(g, image3, 767, 60, 1.0, 0.205); //세로 선
+            drawImage(g, image4, 1175, 90, 0.9); //solveQ 로고
+            drawImage(g, image5, 790, 450, 0.9); //가로 선
+            drawImage(g, image6, 880, 445, 0.9); //동그라미
+            drawImage(g, image5, 1185, 450, 0.9); //가로 선
+            drawImage(g, image6, 1150, 445, 0.9); //동그라미
 
             // 텍스트 그리기
-            drawText(g, "나의 고민", 450, 300, 35);
-            drawText(g, "해결책", 1030, 300, 35);
+            drawText(g, "나의 고민", 450, 260, 30);
+            drawText(g, "해결책", 980, 260, 30);
         }
 
         private void drawImage(Graphics g, BufferedImage img, int x, int y, double scale) {
@@ -97,7 +95,7 @@ public class Diary {
             }
 
             g.setFont(font);
-            g.setColor(Color.BLACK);
+            g.setColor(Color.decode("#6B6B6B"));
             g.drawString(text, x, y);
         }
     }
