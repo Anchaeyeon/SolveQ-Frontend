@@ -7,12 +7,12 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-public class start extends JPanel {
+public class Start extends JPanel {
     private BufferedImage image;
     private Main mainFrame; // Main 클래스의 참조
 
     // 생성자에서 초기화
-    public start(Main mainFrame) {
+    public Start(Main mainFrame) {
         this.mainFrame = mainFrame; // Main 클래스 참조 저장
 
         // 이미지 로드

@@ -16,7 +16,7 @@ public class Main extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         // start 화면 추가
-        start startScreen = new start(this);
+        Start startScreen = new Start(this);
         cardPanel.add(startScreen, "Start");
 
         // keyword 화면 추가

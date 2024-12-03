@@ -55,7 +55,7 @@ public class LovePage extends JPanel {
 
         // 이미지 표시 (이미지가 있는 경우)
         if (image != null) {
-            g.drawImage(image, 740, 40, 40, 35, this); // 이미지 크기와 위치 조정
+            g.drawImage(image, 740, 40, 40, 35, this); // 이미지 크기 & 위치 조정
         }
 
         // 날짜 표시
