@@ -39,6 +39,10 @@ public class Main extends JFrame {
         SchoolPage schoolScreen = new SchoolPage();
         cardPanel.add(schoolScreen, "School");
 
+        // 기타 페이지 추가
+        OtherPage otherScreen = new OtherPage();
+        cardPanel.add(otherScreen, "Other");
+
         setContentPane(cardPanel);
 
         // 처음에 start 화면을 보여줌
@@ -51,11 +55,9 @@ public class Main extends JFrame {
     public void showKeywordScreen() {
         cardLayout.show(cardPanel, "Keyword");
     }
-
     public void showLoveScreen() {
         cardLayout.show(cardPanel, "Love");
     }
-
     public void showFriendshipScreen() {
         cardLayout.show(cardPanel, "Friendship");
     }
@@ -64,6 +66,9 @@ public class Main extends JFrame {
     }
     public void showSchoolScreen() {
         cardLayout.show(cardPanel, "School");
+    }
+    public void showOtherlScreen() {
+        cardLayout.show(cardPanel, "Other");
     }
 
     public static void main(String[] args) {
