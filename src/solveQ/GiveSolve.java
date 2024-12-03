@@ -24,6 +24,7 @@ public class GiveSolve extends JFrame {
         private BufferedImage image2; // 두 번째 이미지
         private BufferedImage image3; // 세 번째 이미지
         private BufferedImage image4; // 네 번째 이미지
+        private BufferedImage image5;
 
         private final int xOffset1 = -550; // 첫 번째 이미지 왼쪽으로 이동할 오프셋 (음수값)
         private final int xOffset2 = -440; // 두 번째 이미지 왼쪽으로 이동할 오프셋
@@ -40,6 +41,7 @@ public class GiveSolve extends JFrame {
                 image3 = ImageIO.read(new File("img/Line.png"));
                 // 네 번째 이미지 파일 경로
                 image4 = ImageIO.read(new File("img/round.png"));
+                image5 = ImageIO.read(new File("img/plug.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,6 +97,14 @@ public class GiveSolve extends JFrame {
                 int x = (width - imgWidth) / 2 + xOffset4; // xOffset4 만큼 이동
                 int y = (height - imgHeight) / 2; // 화면 가운데 y 좌표
                 g.drawImage(image4, x, y, this);
+            }
+
+            if(image5 != null){
+                int imgWidth = image4.getWidth();
+                int imgHeight = image4.getHeight();
+                int x = 1500;
+                int y = 860;
+                g.drawImage(image5,x,y,this);
             }
         }
     }
