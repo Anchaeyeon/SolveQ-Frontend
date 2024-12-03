@@ -101,8 +101,8 @@ public class GiveSolve {
             if (image5 != null) {
                 int imgWidth = image5.getWidth();
                 int imgHeight = image5.getHeight();
-                int x = 1500; // 다섯 번째 이미지의 x좌표
-                int y = 860;  // 다섯 번째 이미지의 y좌표
+                int x = 1420; // 다섯 번째 이미지의 x좌표
+                int y = 700;  // 다섯 번째 이미지의 y좌표
                 g.drawImage(image5, x, y, this);
             }
         }
