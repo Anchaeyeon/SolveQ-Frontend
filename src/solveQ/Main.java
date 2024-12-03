@@ -23,6 +23,10 @@ public class Main extends JFrame {
         keyword keywordScreen = new keyword();
         cardPanel.add(keywordScreen, "Keyword");
 
+        // lovePage 추가
+        LovePage loveScreen = new LovePage();
+        cardPanel.add(loveScreen, "Love");
+
         setContentPane(cardPanel);
 
         // 처음에 start 화면을 보여줌
