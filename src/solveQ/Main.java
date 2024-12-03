@@ -23,9 +23,13 @@ public class Main extends JFrame {
         keyword keywordScreen = new keyword(this);
         cardPanel.add(keywordScreen, "Keyword");
 
-        // lovePage 추가
+        // 사랑 페이지 추가
         LovePage loveScreen = new LovePage();
         cardPanel.add(loveScreen, "Love");
+
+        // 우정 페이지 추가
+        FriendshipPage friendshipScreen = new FriendshipPage();
+        cardPanel.add(friendshipScreen, "Friendship");
 
         setContentPane(cardPanel);
 
@@ -42,6 +46,10 @@ public class Main extends JFrame {
 
     public void showLoveScreen() {
         cardLayout.show(cardPanel, "Love");
+    }
+
+    public void showFriendshipScreen() {
+        cardLayout.show(cardPanel, "Friendship");
     }
 
     public static void main(String[] args) {

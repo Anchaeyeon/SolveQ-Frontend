@@ -51,16 +51,20 @@ public class keyword extends JPanel implements MouseListener {
             // 사랑 고민 적는 페이지로 전환
             mainFrame.showLoveScreen(); // Main 클래스의 메서드 호출
             System.out.println("사랑 페이지로 이동");
-        } else if (friendshipRect.contains(p)) {
+        }
+        else if (friendshipRect.contains(p)) {
+            mainFrame.showFriendshipScreen();
             System.out.println("우정 페이지로 이동");
-            // 다른 페이지로 전환하는 코드 작성
-        } else if (familyRect.contains(p)) {
+        }
+        else if (familyRect.contains(p)) {
             System.out.println("가족 페이지로 이동");
             // 다른 페이지로 전환하는 코드 작성
-        } else if (schoolRect.contains(p)) {
+        }
+        else if (schoolRect.contains(p)) {
             System.out.println("학교 페이지로 이동");
             // 다른 페이지로 전환하는 코드 작성
-        } else if (otherRect.contains(p)) {
+        }
+        else if (otherRect.contains(p)) {
             System.out.println("기타 페이지로 이동");
             // 다른 페이지로 전환하는 코드 작성
         }
