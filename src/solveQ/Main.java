@@ -48,6 +48,10 @@ public class Main extends JFrame {
         GiveSolve giveSolveScreen = new GiveSolve();
         cardPanel.add(giveSolveScreen, "GiveSolve");
 
+        // Diary 화면 추가
+        Diary diaryScreen = new Diary(); // Diary 클래스를 추가
+        cardPanel.add(diaryScreen, "Diary"); // "Diary" 이름으로 추가
+
         setContentPane(cardPanel); // 패널을 프레임의 콘텐츠 패널로 설정
 
         // 처음에 Start 화면을 보여줌
@@ -88,6 +92,11 @@ public class Main extends JFrame {
     // GiveSolve 화면으로 전환하는 메서드
     public void showGiveSolveScreen() {
         cardLayout.show(cardPanel, "GiveSolve");
+    }
+
+    // Diary 화면으로 전환하는 메서드
+    public void showDiaryScreen() {
+        cardLayout.show(cardPanel, "Diary");
     }
 
     public static void main(String[] args) {
