@@ -1,6 +1,8 @@
 package src.solveQ;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -13,6 +15,7 @@ import javax.imageio.ImageIO;
 public class SchoolPage extends JPanel {
     private JTextArea inputField; // 입력을 받을 텍스트 필드
     private Image image; // 맨 위에 표시할 이미지
+    private JButton nextButton; // '해결책 보기' 버튼
 
     public SchoolPage() {
         // 이미지 로드
@@ -28,7 +31,48 @@ public class SchoolPage extends JPanel {
         setSize(1920, 1080); // 패널 크기
         setBackground(new Color(0, 0, 0, 0)); // 투명 배경을 위해 설정
 
-        // 마우스 클릭 이벤트 리스너 추가
+        // '해결책 보기' 버튼 생성 및 설정
+        nextButton = new JButton("해결책 보기");
+        nextButton.setBounds(600, 680, 300, 60);
+        nextButton.setBackground(Color.WHITE);
+        nextButton.setForeground(Color.decode("#41116D"));
+        nextButton.setFocusPainted(false);
+        nextButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+        // 버튼의 폰트 설정
+        try {
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
+            customFont = customFont.deriveFont(30f); // 원하는 크기로 설정
+            nextButton.setFont(customFont);
+        } catch (Exception e) {
+            e.printStackTrace();
+            nextButton.setFont(new Font("Serif", Font.BOLD, 30)); // 기본 폰트 설정
+        }
+
+        // 버튼 클릭 이벤트 리스너 추가
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (inputField != null && !inputField.getText().isEmpty()) {
+                    // 입력된 내용을 데이터베이스에 저장
+                    worryInsertdb.saveWorry(inputField.getText());
+                } else {
+                    JOptionPane.showMessageDialog(SchoolPage.this, "고민을 입력해 주세요.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+                }
+
+                // Main 클래스 인스턴스를 가져와서 화면 전환 호출
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(SchoolPage.this);
+                if (topFrame instanceof Main) {
+                    Main mainFrame = (Main) topFrame;
+                    mainFrame.showDiaryCoverScreen();
+                }
+            }
+        });
+
+        // 버튼을 패널에 추가
+        this.add(nextButton);
+
+        // 마우스 클릭 이벤트 리스너 추가 (입력 필드 활성화)
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -37,26 +81,6 @@ public class SchoolPage extends JPanel {
                 }
             }
         });
-
-        // LovePage 클래스의 마우스 클릭 이벤트 리스너
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (new Rectangle(280, 250, 954, 400).contains(e.getPoint())) {
-                    showInputField();
-                }
-                // '해결책 보기' 버튼 눌렀을 때 DiaryCover로 이동
-                if (new Rectangle(600, 680, 300, 60).contains(e.getPoint())) {
-                    // Main 클래스 인스턴스를 가져와서 화면 전환 호출
-                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(SchoolPage.this);
-                    if (topFrame instanceof Main) {
-                        Main mainFrame = (Main) topFrame;
-                        mainFrame.showDiaryCoverScreen();
-                    }
-                }
-            }
-        });
-
     }
 
     @Override
@@ -129,7 +153,7 @@ public class SchoolPage extends JPanel {
             inputField.setLineWrap(true);
             inputField.setWrapStyleWord(true);
             inputField.setBackground(Color.WHITE);
-            inputField.setFont(new Font("Serif", Font.PLAIN, 20));
+            inputField.setFont(new Font("fonts/Pretendard-Bold.otf", Font.PLAIN, 20));
             inputField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             inputField.setBounds(280 + 10, 250 + 10, 954 - 20, 400 - 20);
 
