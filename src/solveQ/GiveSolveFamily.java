@@ -46,7 +46,7 @@ public class GiveSolveFamily {
                 image5 = loadImage("img/plug.png");
 
                 // 랜덤 가족 조언 로드
-                friendshipAdvice = getRandomAdvice("keywordText/KeywordFriendship.txt");
+                friendshipAdvice = getRandomAdvice("keywordText/keywordFamily.txt");
             } catch (IOException e) {
                 e.printStackTrace();
                 friendshipAdvice = "가족에 대한 조언을 불러오지 못했습니다.";
