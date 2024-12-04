@@ -9,54 +9,50 @@ public class Main extends JFrame {
 
     public Main() {
         setTitle("SolveQ");
-        setSize(1920, 1080);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1920, 1080); // 화면 크기 설정
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
 
-        cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout);
+        cardLayout = new CardLayout(); // 카드 레이아웃 설정
+        cardPanel = new JPanel(cardLayout); // 카드 레이아웃을 담을 패널
 
-        // start 화면 추가
+        // 화면들을 카드 레이아웃에 추가
         Start startScreen = new Start(this);
         cardPanel.add(startScreen, "Start");
 
-        // keyword 화면 추가
         Keyword keywordScreen = new Keyword(this);
         cardPanel.add(keywordScreen, "Keyword");
 
-        // 사랑 페이지 추가
         LovePage loveScreen = new LovePage();
         cardPanel.add(loveScreen, "Love");
 
-        // 우정 페이지 추가
         FriendshipPage friendshipScreen = new FriendshipPage();
         cardPanel.add(friendshipScreen, "Friendship");
 
-        // 가족 페이지 추가
         FamilyPage familyScreen = new FamilyPage();
         cardPanel.add(familyScreen, "Family");
 
-        // 학교 페이지 추가
         SchoolPage schoolScreen = new SchoolPage();
         cardPanel.add(schoolScreen, "School");
 
-        // 기타 페이지 추가
         OtherPage otherScreen = new OtherPage();
         cardPanel.add(otherScreen, "Other");
 
-        // 로딩 화면 추가
         Loding lodingScreen = new Loding();
         cardPanel.add(lodingScreen, "Loding");
 
-        // 키워드 선택해서 각각 고민을 적고 해결책 보기를 누르면 DiaryCover로 이동
-        DiaryCover diaryCoverScreen = new DiaryCover();
+        DiaryCover diaryCoverScreen = new DiaryCover(this);
         cardPanel.add(diaryCoverScreen, "DiaryCover");
 
-        setContentPane(cardPanel);
+        // GiveSolve 화면 추가
+        GiveSolve giveSolveScreen = new GiveSolve();
+        cardPanel.add(giveSolveScreen, "GiveSolve");
 
-        // 처음에 start 화면을 보여줌
+        setContentPane(cardPanel); // 패널을 프레임의 콘텐츠 패널로 설정
+
+        // 처음에 Start 화면을 보여줌
         cardLayout.show(cardPanel, "Start");
 
-        setVisible(true);
+        setVisible(true); // 프레임을 보여줌
     }
 
     // 화면 전환 메서드들
@@ -80,20 +76,17 @@ public class Main extends JFrame {
         cardLayout.show(cardPanel, "School");
     }
 
-    public void showOtherlScreen() {
+    public void showOtherScreen() {
         cardLayout.show(cardPanel, "Other");
     }
 
     public void showDiaryCoverScreen() {
-        // 먼저 로딩 화면을 보여줌
-        cardLayout.show(cardPanel, "Loding");
+        cardLayout.show(cardPanel, "DiaryCover");
+    }
 
-        // 일정 시간 후 DiaryCover 화면으로 전환
-        Timer timer = new Timer(2000, e -> {
-            cardLayout.show(cardPanel, "DiaryCover");
-        });
-        timer.setRepeats(false); // 한 번만 실행
-        timer.start();
+    // GiveSolve 화면으로 전환하는 메서드
+    public void showGiveSolveScreen() {
+        cardLayout.show(cardPanel, "GiveSolve");
     }
 
     public static void main(String[] args) {
