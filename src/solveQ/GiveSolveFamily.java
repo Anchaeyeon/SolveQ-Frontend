@@ -34,7 +34,7 @@ public class GiveSolveFamily {
         private final int xOffset3 = 550;  // 세 번째 이미지 오른쪽 이동
         private final int xOffset4 = 440;  // 네 번째 이미지 오른쪽 이동
 
-        private String friendshipAdvice; // 랜덤 조언을 저장할 변수
+        private String familyAdvice; // 랜덤 가족 조언을 저장할 변수
 
         public GradientPanel() {
             try {
@@ -46,10 +46,10 @@ public class GiveSolveFamily {
                 image5 = loadImage("img/plug.png");
 
                 // 랜덤 가족 조언 로드
-                friendshipAdvice = getRandomAdvice("keywordText/keywordFamily.txt");
+                familyAdvice = getRandomAdvice("keywordText/keywordFamily.txt");
             } catch (IOException e) {
                 e.printStackTrace();
-                friendshipAdvice = "가족에 대한 조언을 불러오지 못했습니다.";
+                familyAdvice = "가족에 대한 조언을 불러오지 못했습니다.";
             }
         }
 
@@ -94,9 +94,10 @@ public class GiveSolveFamily {
             drawImage(g, image5, width, height, 1420, 700); // 다섯 번째 이미지 고정 위치
 
             // 텍스트 그리기 (요청된 위치 유지)
-            drawAdviceText(g, friendshipAdvice, width, height);
+            drawAdviceText(g, familyAdvice, width, height);
         }
 
+        // 이미지를 그리는 메서드 (중앙에 위치, 오프셋 적용)
         private void drawImage(Graphics g, BufferedImage image, int width, int height, int xOffset) {
             if (image != null) {
                 int imgWidth = image.getWidth();
@@ -107,12 +108,14 @@ public class GiveSolveFamily {
             }
         }
 
+        // 이미지를 그리는 메서드 (고정된 위치)
         private void drawImage(Graphics g, BufferedImage image, int width, int height, int x, int y) {
             if (image != null) {
                 g.drawImage(image, x, y, this);
             }
         }
 
+        // 가족 조언 텍스트를 그리는 메서드
         private void drawAdviceText(Graphics g, String advice, int width, int height) {
             try {
                 // Pretendard 폰트를 사용하여 텍스트 렌더링
