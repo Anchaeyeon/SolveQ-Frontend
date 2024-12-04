@@ -48,25 +48,19 @@ public class Keyword extends JPanel implements MouseListener {
         Point p = e.getPoint();
 
         if (loveRect.contains(p)) {
-            // 사랑 고민 적는 페이지로 전환
-            mainFrame.showLoveScreen(); // Main 클래스의 메서드 호출
-            System.out.println("사랑 페이지로 이동");
+            mainFrame.showLoveScreen(); // 사랑 페이지로 전환
         }
         else if (friendshipRect.contains(p)) {
-            mainFrame.showFriendshipScreen();
-            System.out.println("우정 페이지로 이동");
+            mainFrame.showFriendshipScreen(); // 우정 페이지로 전환
         }
         else if (familyRect.contains(p)) {
-            mainFrame.showFamilyScreen();
-            System.out.println("가족 페이지로 이동");
+            mainFrame.showFamilyScreen(); // 가족 페이지로 전환
         }
         else if (schoolRect.contains(p)) {
-            mainFrame.showSchoolScreen();
-            System.out.println("학교 페이지로 이동");
+            mainFrame.showSchoolScreen(); // 학교 페이지로 전환
         }
         else if (otherRect.contains(p)) {
-            mainFrame.showOtherlScreen();
-            System.out.println("기타 페이지로 이동");
+            mainFrame.showOtherScreen(); // 기타 페이지로 전환
         }
     }
 
@@ -105,34 +99,25 @@ public class Keyword extends JPanel implements MouseListener {
         }
         g.setFont(pretendardFont);
 
+        // 키워드를 선택하라는 텍스트 그리기
         choiceKeyword(g, "키워드를 선택해주세요.", 670, 50, 195, 240);
 
-        // 사랑 키워드 사각형
-        g.setColor(Color.white);
-        g.fillRoundRect(180, 350, 195, 240, 10, 10); // 둥근 모서리 사각형 채우기
-        drawCenteredString(g, "사랑", loveImage, 180, 350, 195, 240);
-
-        // 우정 키워드 사각형
-        g.setColor(Color.white);
-        g.fillRoundRect(425, 350, 195, 240, 10, 10);
-        drawCenteredString(g, "우정", friendshipImage, 425, 350, 195, 240);
-
-        // 가족 키워드 사각형
-        g.setColor(Color.white);
-        g.fillRoundRect(665, 350, 195, 240, 10, 10);
-        drawCenteredString(g, "가족", familyImage, 665, 350, 195, 240);
-
-        // 학교 키워드 사각형
-        g.setColor(Color.white);
-        g.fillRoundRect(905, 350, 195, 240, 10, 10);
-        drawCenteredString(g, "학교", schoolImage, 905, 350, 195, 240);
-
-        // 기타 키워드 사각형
-        g.setColor(Color.white);
-        g.fillRoundRect(1145, 350, 195, 240, 10, 10);
-        drawCenteredString(g, "기타", otherImage, 1145, 350, 195, 240);
+        // 각 키워드 이미지 및 텍스트 그리기
+        drawKeywordWithImageAndText(g, "사랑", loveImage, 180, 350, 195, 240);
+        drawKeywordWithImageAndText(g, "우정", friendshipImage, 425, 350, 195, 240);
+        drawKeywordWithImageAndText(g, "가족", familyImage, 665, 350, 195, 240);
+        drawKeywordWithImageAndText(g, "학교", schoolImage, 905, 350, 195, 240);
+        drawKeywordWithImageAndText(g, "기타", otherImage, 1145, 350, 195, 240);
     }
 
+    // 각 키워드에 해당하는 이미지와 텍스트 그리는 메서드
+    private void drawKeywordWithImageAndText(Graphics g, String text, BufferedImage image, int x, int y, int width, int height) {
+        g.setColor(Color.white);
+        g.fillRoundRect(x, y, width, height, 10, 10); // 둥근 모서리 사각형 채우기
+        drawCenteredString(g, text, image, x, y, width, height); // 이미지와 텍스트 그리기
+    }
+
+    // 이미지와 텍스트를 사각형 안에 맞게 그리는 메서드
     private void drawCenteredString(Graphics g, String text, BufferedImage image, int x, int y, int width, int height) {
         g.setColor(Color.decode("#7D20D4")); // 글씨 색 설정
         if (image != null) {
@@ -148,6 +133,7 @@ public class Keyword extends JPanel implements MouseListener {
         g.drawString(text, textX, textY);
     }
 
+    // 키워드를 선택해주세요 텍스트 그리는 메서드
     private void choiceKeyword(Graphics g, String text, int x, int y, int width, int height) {
         g.setColor(Color.white); // 글씨 색 설정
 
