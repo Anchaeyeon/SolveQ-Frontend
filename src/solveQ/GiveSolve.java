@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
+import java.nio.file.*;
+import java.util.List;
+import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class GiveSolve {
@@ -32,6 +35,8 @@ public class GiveSolve {
         private final int xOffset3 = 550;  // 세 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
         private final int xOffset4 = 440;  // 네 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
 
+        private String loveAdvice; // 랜덤 조언을 저장할 변수
+
         public GradientPanel() {
             try {
                 // 이미지 로드
@@ -40,9 +45,34 @@ public class GiveSolve {
                 image3 = ImageIO.read(new File("img/Line.png"));
                 image4 = ImageIO.read(new File("img/round.png"));
                 image5 = ImageIO.read(new File("img/plug.png"));
+
+                // 랜덤 조언 로드
+                loveAdvice = getRandomAdvice("keywordText/KeywordLove.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+                loveAdvice = "사랑에 대한 조언을 불러오지 못했습니다.";
+            }
+        }
+
+        // 텍스트 파일에서 랜덤 조언을 가져오는 메서드
+        private String getRandomAdvice(String filename) {
+            try {
+                // 파일에서 모든 라인 읽기 (상대 경로 사용)
+                List<String> lines = Files.readAllLines(Paths.get(filename));  // "KeywordText/KeywordLove.txt" 파일 경로
+
+                // 라인이 비어있지 않은지 확인
+                if (!lines.isEmpty()) {
+                    // 랜덤 인덱스 생성
+                    Random random = new Random();
+                    int randomIndex = random.nextInt(lines.size());
+
+                    // 랜덤 라인 반환
+                    return lines.get(randomIndex);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return "조언을 찾을 수 없습니다.";
         }
 
         @Override
@@ -105,6 +135,20 @@ public class GiveSolve {
                 int y = 700;  // 다섯 번째 이미지의 y좌표
                 g.drawImage(image5, x, y, this);
             }
+
+            // 랜덤 조언 텍스트 그리기
+            try {
+                Font pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"))
+                        .deriveFont(40f);
+                g.setFont(pretendardFont);
+            } catch (FontFormatException | IOException e) {
+                g.setFont(new Font("Serif", Font.BOLD, 40));
+            }
+
+            g.setColor(Color.WHITE);
+            FontMetrics metrics = g.getFontMetrics();
+            int textWidth = metrics.stringWidth(loveAdvice);
+            g.drawString(loveAdvice, (width - textWidth) / 2, height / 2); // 텍스트 중앙에 그리기
         }
     }
 }
