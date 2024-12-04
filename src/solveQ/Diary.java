@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.sql.SQLException;
 
 public class Diary extends JPanel {
     private BufferedImage image;
@@ -15,10 +14,12 @@ public class Diary extends JPanel {
     private BufferedImage image4;
     private BufferedImage image5;
     private BufferedImage image6;
+    private String latestAdvice; // 최신 조언 저장 변수
     private String latestWorry; // 최신 고민 저장 변수
 
     public Diary() {
         loadImages(); // 이미지 로딩 메서드 호출
+        updateLatestAdvice(); // 최신 조언 불러오기
         updateLatestWorry(); // 최신 고민 불러오기
     }
 
@@ -37,11 +38,18 @@ public class Diary extends JPanel {
         }
     }
 
+    // 최신 조언을 업데이트하는 메서드
+    public void updateLatestAdvice() {
+        solveRandomdb db = new solveRandomdb();
+        latestAdvice = db.getLatestAdvice(); // 데이터베이스에서 최신 조언 가져오기
+        repaint(); // 화면을 다시 그려 최신 조언 표시
+    }
+
     // 최신 고민을 업데이트하는 메서드
     public void updateLatestWorry() {
-        solveRandomdb db = new solveRandomdb();
-        latestWorry = db.getLatestAdvice(); // 데이터베이스에서 최신 조언 가져오기
-        repaint(); // 화면을 다시 그려 최신 조언 표시
+        worryInsertdb db = new worryInsertdb();
+        latestWorry = db.getLatestWorry(); // 데이터베이스에서 최신 고민 가져오기
+        repaint(); // 화면을 다시 그려 최신 고민 표시
     }
 
     @Override
@@ -66,11 +74,18 @@ public class Diary extends JPanel {
         drawText(g, "나의 고민", 450, 260, 30);
         drawText(g, "해결책", 980, 260, 30);
 
-        // 글씨를 image2 위에 표시
-        if (latestWorry != null) {
-            drawText(g, latestWorry, 800, 300, 20); // image2 위에 글씨가 나타나도록 위치 조정
+        // 'book_left' 이미지 위에 최신 조언 표시
+        if (latestAdvice != null) {
+            drawText(g, latestAdvice, 260, 140, 20); // 'book_left' 이미지 위에 텍스트 위치 조정
         } else {
-            drawText(g, "최근 고민이 없습니다.", 800, 300, 20); // 위치 조정
+            drawText(g, "최근 조언이 없습니다.", 260, 140, 20); // 위치 조정
+        }
+
+        // 'book_right' 이미지 위에 최신 고민 표시
+        if (latestWorry != null) {
+            drawText(g, latestWorry, 850, 140, 20); // 'book_right' 이미지 위에 텍스트 위치 조정
+        } else {
+            drawText(g, "최근 고민이 없습니다.", 850, 140, 20); // 위치 조정
         }
     }
 

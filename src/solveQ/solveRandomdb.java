@@ -27,7 +27,7 @@ public class solveRandomdb {
 
     public String getLatestAdvice() {
         String latestAdvice = null;
-        String sql = "SELECT advice_text FROM solveRandom ORDER BY id DESC LIMIT 1"; // 최신 조언 가져오기
+        String sql = "SELECT advice_text FROM solveRandom ORDER BY id DESC LIMIT 1";
 
         try (Connection conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(sql);
