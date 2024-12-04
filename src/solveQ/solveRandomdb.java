@@ -3,6 +3,7 @@ package src.solveQ;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class solveRandomdb {
@@ -22,5 +23,23 @@ public class solveRandomdb {
             e.printStackTrace();
             System.out.println("데이터베이스 저장 오류: " + e.getMessage());
         }
+    }
+
+    public String getLatestAdvice() {
+        String latestAdvice = null;
+        String sql = "SELECT advice_text FROM solveRandom ORDER BY id DESC LIMIT 1"; // 최신 조언 가져오기
+
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                latestAdvice = rs.getString("advice_text");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("데이터베이스 조회 오류: " + e.getMessage());
+        }
+        return latestAdvice;
     }
 }

@@ -39,8 +39,9 @@ public class Diary extends JPanel {
 
     // 최신 고민을 업데이트하는 메서드
     public void updateLatestWorry() {
-        latestWorry = worryInsertdb.getLatestWorry(); // 데이터베이스에서 최신 고민 가져오기
-        // 필요 시 repaint() 호출을 외부에서 수행하도록 합니다.
+        solveRandomdb db = new solveRandomdb();
+        latestWorry = db.getLatestAdvice(); // 데이터베이스에서 최신 조언 가져오기
+        repaint(); // 화면을 다시 그려 최신 조언 표시
     }
 
     @Override
@@ -61,14 +62,15 @@ public class Diary extends JPanel {
         drawImage(g, image5, 1185, 450, 0.9);
         drawImage(g, image6, 1150, 445, 0.9);
 
-        // 텍스트 그리기
+        // 텍스트 그리기 (이미지 위에 표시)
         drawText(g, "나의 고민", 450, 260, 30);
         drawText(g, "해결책", 980, 260, 30);
 
+        // 글씨를 image2 위에 표시
         if (latestWorry != null) {
-            drawText(g, latestWorry, 460, 450, 30);
+            drawText(g, latestWorry, 800, 300, 20); // image2 위에 글씨가 나타나도록 위치 조정
         } else {
-            drawText(g, "최근 고민이 없습니다.", 460, 450, 30);
+            drawText(g, "최근 고민이 없습니다.", 800, 300, 20); // 위치 조정
         }
     }
 
@@ -93,12 +95,12 @@ public class Diary extends JPanel {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
             font = font.deriveFont(fontSize);
-            g.setColor(Color.decode("#7D20D4")); // 글씨 색깔 설정
+            g.setColor(Color.decode("#6B6B6B")); // 글씨 색깔 설정
         } catch (FontFormatException | IOException e) {
             System.err.println("폰트 로딩 오류: " + e.getMessage());
             e.printStackTrace();
             font = new Font("Serif", Font.BOLD, (int) fontSize);
-            g.setColor(Color.decode("#7D20D4")); // 대체 색상
+            g.setColor(Color.decode("#6B6B6B"));
         }
 
         g.setFont(font);
