@@ -6,26 +6,24 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-public class Loding extends JFrame {
+public class Loding extends JPanel {
     public Loding() {
-        setTitle("loding");
-        setSize(1920, 1080); // 프레임 크기
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
+        // 패널의 레이아웃을 BorderLayout으로 설정
+        setLayout(new BorderLayout());
 
-        // 커스텀 패널 추가
-        GradientPanel panel = new GradientPanel();
-        setContentPane(panel); // 프레임의 기본 컨텐츠 패널로 설정
-        setVisible(true); // 프레임 출력
+        // 그라데이션 패널 생성 및 추가
+        GradientPanel gradientPanel = new GradientPanel();
+        add(gradientPanel, BorderLayout.CENTER);
     }
 
-    // 그라데이션을 그리는 커스텀 패널 클래스
+    // 그라데이션을 그리는 내부 패널 클래스
     class GradientPanel extends JPanel {
         private BufferedImage image;
 
         // 생성자에서 이미지 로드
         public GradientPanel() {
             try {
-                // 이미지 파일 경로를 입력하세요.
+                // 이미지 파일 경로 로드
                 image = ImageIO.read(new File("img/LODING.png"));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -84,13 +82,11 @@ public class Loding extends JFrame {
 
         FontMetrics metrics = g.getFontMetrics();
         int textX = x + (width - metrics.stringWidth(text)) / 2;
-        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent()-160; // 위치를 살짝 올리기 위해 -10 추가
+        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent() - 160; // 위치를 살짝 올리기 위해 -160 추가
         g.drawString(text, textX, textY);
 
         g.setFont(originalFont);
     }
 
-    public static void main(String[] args) {
-        new Loding(); // 올바른 클래스 이름 사용
-    }
+    // main 메서드 제거 (CardLayout에서 사용할 것이므로)
 }
