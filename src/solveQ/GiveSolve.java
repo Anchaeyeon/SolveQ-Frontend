@@ -2,6 +2,7 @@ package src.solveQ;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 import java.nio.file.*;
@@ -41,6 +42,14 @@ public class GiveSolve extends JPanel {
             e.printStackTrace();
             loveAdvice = "사랑에 대한 조언을 불러오지 못했습니다.";
         }
+
+        // 마우스 클릭 이벤트 리스너 추가 (화면 클릭 시 Diary 화면으로 이동)
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showDiaryScreen(); // 화면 클릭 시 Diary 화면으로 전환
+            }
+        });
     }
 
     // 텍스트 파일에서 랜덤 조언을 가져오는 메서드
@@ -89,7 +98,7 @@ public class GiveSolve extends JPanel {
             g.drawImage(image1, x, y, this);
         }
 
-        // 두 번째 이미지 그리기
+        // 나머지 이미지 그리기
         if (image2 != null) {
             int imgWidth = image2.getWidth();
             int imgHeight = image2.getHeight();
@@ -98,7 +107,6 @@ public class GiveSolve extends JPanel {
             g.drawImage(image2, x, y, this);
         }
 
-        // 세 번째 이미지 그리기
         if (image3 != null) {
             int imgWidth = image3.getWidth();
             int imgHeight = image3.getHeight();
@@ -107,7 +115,6 @@ public class GiveSolve extends JPanel {
             g.drawImage(image3, x, y, this);
         }
 
-        // 네 번째 이미지 그리기
         if (image4 != null) {
             int imgWidth = image4.getWidth();
             int imgHeight = image4.getHeight();
@@ -138,5 +145,14 @@ public class GiveSolve extends JPanel {
         FontMetrics metrics = g.getFontMetrics();
         int textWidth = metrics.stringWidth(loveAdvice);
         g.drawString(loveAdvice, (width - textWidth) / 2, height / 2); // 텍스트 중앙에 그리기
+    }
+
+    // Diary 화면으로 전환하는 메서드
+    private void showDiaryScreen() {
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this); // 부모 프레임 찾기
+        if (topFrame instanceof Main) {
+            Main mainFrame = (Main) topFrame;
+            mainFrame.showDiaryScreen(); // Diary 화면으로 전환
+        }
     }
 }
