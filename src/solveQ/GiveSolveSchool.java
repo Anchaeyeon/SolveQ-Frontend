@@ -97,6 +97,7 @@ public class GiveSolveSchool {
             drawAdviceText(g, schoolAdvice, width, height);
         }
 
+        // 이미지를 그리는 메서드 (중앙에 위치, 오프셋 적용)
         private void drawImage(Graphics g, BufferedImage image, int width, int height, int xOffset) {
             if (image != null) {
                 int imgWidth = image.getWidth();
@@ -107,12 +108,14 @@ public class GiveSolveSchool {
             }
         }
 
+        // 이미지를 그리는 메서드 (고정된 위치)
         private void drawImage(Graphics g, BufferedImage image, int width, int height, int x, int y) {
             if (image != null) {
                 g.drawImage(image, x, y, this);
             }
         }
 
+        // 학교 조언 텍스트를 그리는 메서드
         private void drawAdviceText(Graphics g, String advice, int width, int height) {
             try {
                 // Pretendard 폰트를 사용하여 텍스트 렌더링

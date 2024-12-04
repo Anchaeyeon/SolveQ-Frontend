@@ -13,31 +13,26 @@ import java.util.Random;
 
 public class GiveSolveFriendship {
     public static void main(String[] args) {
-        // 프레임 생성
+        // JFrame 생성
         JFrame frame = new JFrame("GiveSolve 화면(우정)");
         frame.setSize(1920, 1080); // 프레임 크기
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
 
-        // 커스텀 패널 생성
+        // 커스텀 JPanel을 만들어서 프레임에 설정
         GradientPanel panel = new GradientPanel();
-        frame.setContentPane(panel); // 커스텀 패널을 프레임의 컨텐츠 패널로 설정
-        frame.setVisible(true); // 프레임 출력
+        frame.setContentPane(panel); // JPanel을 프레임의 컨텐츠 패널로 설정
+        frame.setVisible(true); // 프레임을 화면에 출력
     }
 
-    // GiveSolveFriendship 전용 그라데이션과 이미지를 그리는 커스텀 JPanel 클래스
+    // 우정 관련 이미지를 그리고, 그라데이션과 텍스트를 표시하는 커스텀 JPanel 클래스
     static class GradientPanel extends JPanel {
-        private BufferedImage image1; // 첫 번째 이미지
-        private BufferedImage image2; // 두 번째 이미지
-        private BufferedImage image3; // 세 번째 이미지
-        private BufferedImage image4; // 네 번째 이미지
-        private BufferedImage image5; // 다섯 번째 이미지
+        private BufferedImage image1, image2, image3, image4, image5; // 5개의 이미지
+        private String friendshipAdvice; // 랜덤 우정 조언
 
-        private final int xOffset1 = -550; // 첫 번째 이미지 왼쪽으로 이동할 오프셋 (음수값)
-        private final int xOffset2 = -440; // 두 번째 이미지 왼쪽으로 이동할 오프셋 (음수값)
-        private final int xOffset3 = 550;  // 세 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
-        private final int xOffset4 = 440;  // 네 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
-
-        private String friendshipAdvice; // 랜덤 조언을 저장할 변수
+        private final int xOffset1 = -550;
+        private final int xOffset2 = -440;
+        private final int xOffset3 = 550;
+        private final int xOffset4 = 440;
 
         public GradientPanel() {
             try {
@@ -59,16 +54,13 @@ public class GiveSolveFriendship {
         // 텍스트 파일에서 랜덤 조언을 가져오는 메서드
         private String getRandomAdvice(String filename) {
             try {
-                // 파일에서 모든 라인 읽기 (상대 경로 사용)
-                List<String> lines = Files.readAllLines(Paths.get(filename));  // "KeywordText/KeywordFriendship.txt" 파일 경로
+                // 텍스트 파일에서 모든 라인 읽기
+                List<String> lines = Files.readAllLines(Paths.get(filename));
 
-                // 라인이 비어있지 않은지 확인
                 if (!lines.isEmpty()) {
                     // 랜덤 인덱스 생성
                     Random random = new Random();
                     int randomIndex = random.nextInt(lines.size());
-
-                    // 랜덤 라인 반환
                     return lines.get(randomIndex);
                 }
             } catch (IOException e) {
@@ -82,62 +74,33 @@ public class GiveSolveFriendship {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
 
-            // 그라데이션 색상 설정
-            Color startColor = Color.decode("#B365FD"); // HEX 색상 #B365FD
-            Color endColor = Color.decode("#41116D");   // HEX 색상 #41116D
+            // 배경 그라데이션 설정
+            Color startColor = Color.decode("#B365FD"); // 시작 색상
+            Color endColor = Color.decode("#41116D");   // 끝 색상
             int width = getWidth();
             int height = getHeight();
 
-            // 세로 방향으로 그라데이션 적용
             GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
             g2d.setPaint(gradient);
-            g2d.fillRect(0, 0, width, height); // 그라데이션으로 배경 채우기
+            g2d.fillRect(0, 0, width, height); // 그라데이션 배경 채우기
 
-            if (image1 != null) {
-                int imgWidth = image1.getWidth();
-                int imgHeight = image1.getHeight();
-                int x = (width - imgWidth) / 2 + xOffset1; // 첫 번째 이미지의 x좌표 계산
-                int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-                g.drawImage(image1, x, y, this);
-            }
+            // 이미지를 그리는 부분
+            drawImage(g, image1, xOffset1);
+            drawImage(g, image2, xOffset2);
+            drawImage(g, image3, xOffset3);
+            drawImage(g, image4, xOffset4);
 
-            // 두 번째 이미지 그리기
-            if (image2 != null) {
-                int imgWidth = image2.getWidth();
-                int imgHeight = image2.getHeight();
-                int x = (width - imgWidth) / 2 + xOffset2; // 두 번째 이미지의 x좌표 계산
-                int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-                g.drawImage(image2, x, y, this);
-            }
-
-            // 세 번째 이미지 그리기
-            if (image3 != null) {
-                int imgWidth = image3.getWidth();
-                int imgHeight = image3.getHeight();
-                int x = (width - imgWidth) / 2 + xOffset3; // 세 번째 이미지의 x좌표 계산
-                int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-                g.drawImage(image3, x, y, this);
-            }
-
-            // 네 번째 이미지 그리기
-            if (image4 != null) {
-                int imgWidth = image4.getWidth();
-                int imgHeight = image4.getHeight();
-                int x = (width - imgWidth) / 2 + xOffset4; // 네 번째 이미지의 x좌표 계산
-                int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-                g.drawImage(image4, x, y, this);
-            }
-
-            // 다섯 번째 이미지 고정 위치에 그리기
+            // 다섯 번째 이미지를 고정 위치에 그리기
             if (image5 != null) {
                 int imgWidth = image5.getWidth();
                 int imgHeight = image5.getHeight();
-                int x = 1420; // 다섯 번째 이미지의 x좌표
-                int y = 700;  // 다섯 번째 이미지의 y좌표
+                int x = 1420; // x좌표
+                int y = 700;  // y좌표
                 g.drawImage(image5, x, y, this);
             }
 
             // 랜덤 우정 조언 텍스트 그리기
+            g.setColor(Color.WHITE);
             try {
                 Font pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"))
                         .deriveFont(40f);
@@ -146,10 +109,20 @@ public class GiveSolveFriendship {
                 g.setFont(new Font("Serif", Font.BOLD, 40));
             }
 
-            g.setColor(Color.WHITE);
             FontMetrics metrics = g.getFontMetrics();
             int textWidth = metrics.stringWidth(friendshipAdvice);
             g.drawString(friendshipAdvice, (width - textWidth) / 2, height / 2); // 텍스트 중앙에 그리기
+        }
+
+        // 이미지를 그리는 메서드
+        private void drawImage(Graphics g, BufferedImage image, int xOffset) {
+            if (image != null) {
+                int imgWidth = image.getWidth();
+                int imgHeight = image.getHeight();
+                int x = (getWidth() - imgWidth) / 2 + xOffset; // x좌표 조정
+                int y = (getHeight() - imgHeight) / 2; // y좌표 중앙
+                g.drawImage(image, x, y, this);
+            }
         }
     }
 }

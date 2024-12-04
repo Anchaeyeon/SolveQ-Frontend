@@ -17,7 +17,7 @@ public class GiveSolve {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
 
         // 커스텀 패널 생성
-        GradientPanel panel = new GradientPanel();
+        JPanel panel = new GradientPanel(); // GradientPanel을 JPanel로 설정
         frame.setContentPane(panel); // 커스텀 패널을 프레임의 컨텐츠 패널로 설정
         frame.setVisible(true); // 프레임 출력
     }
