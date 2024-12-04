@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 import java.nio.file.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
@@ -17,16 +18,17 @@ public class GiveSolve extends JPanel {
     private BufferedImage image4; // 네 번째 이미지
     private BufferedImage image5; // 다섯 번째 이미지
 
-    private final int xOffset1 = -550; // 첫 번째 이미지 왼쪽으로 이동할 오프셋 (음수값)
-    private final int xOffset2 = -440; // 두 번째 이미지 왼쪽으로 이동할 오프셋 (음수값)
-    private final int xOffset3 = 550;  // 세 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
-    private final int xOffset4 = 440;  // 네 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
+    private final int xOffset1 = -550; // 첫 번째 이미지의 x 오프셋
+    private final int xOffset2 = -440; // 두 번째 이미지의 x 오프셋
+    private final int xOffset3 = 550;  // 세 번째 이미지의 x 오프셋
+    private final int xOffset4 = 440;  // 네 번째 이미지의 x 오프셋
 
-    private String loveAdvice; // 랜덤 조언을 저장할 변수
+    private String loveAdvice; // 랜덤 조언 저장 변수
+    private solveRandomdb dbHandler = new solveRandomdb(); // 데이터베이스 핸들러 인스턴스
 
     public GiveSolve() {
-        // JPanel 생성 시 호출되는 생성자
-        setLayout(null); // 절대 위치 레이아웃 사용
+        // JPanel 설정
+        setLayout(null);
 
         try {
             // 이미지 로드
@@ -36,18 +38,19 @@ public class GiveSolve extends JPanel {
             image4 = ImageIO.read(new File("img/round.png"));
             image5 = ImageIO.read(new File("img/plug.png"));
 
-            // 랜덤 조언 로드
+            // 랜덤 조언 로드 및 데이터베이스에 저장
             loveAdvice = getRandomAdvice("keywordText/KeywordLove.txt");
+            dbHandler.saveAdviceToDatabase(loveAdvice); // 데이터베이스에 조언 저장
         } catch (IOException e) {
             e.printStackTrace();
             loveAdvice = "사랑에 대한 조언을 불러오지 못했습니다.";
         }
 
-        // 마우스 클릭 이벤트 리스너 추가 (화면 클릭 시 Diary 화면으로 이동)
+        // 마우스 클릭 이벤트 리스너 추가 (Diary 화면으로 이동)
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                showDiaryScreen(); // 화면 클릭 시 Diary 화면으로 전환
+                showDiaryScreen(); // Diary 화면 전환
             }
         });
     }
@@ -55,16 +58,11 @@ public class GiveSolve extends JPanel {
     // 텍스트 파일에서 랜덤 조언을 가져오는 메서드
     private String getRandomAdvice(String filename) {
         try {
-            // 파일에서 모든 라인 읽기 (상대 경로 사용)
-            List<String> lines = Files.readAllLines(Paths.get(filename));  // "KeywordText/KeywordLove.txt" 파일 경로
+            List<String> lines = Files.readAllLines(Paths.get(filename)); // 파일 경로 사용
 
-            // 라인이 비어있지 않은지 확인
             if (!lines.isEmpty()) {
-                // 랜덤 인덱스 생성
                 Random random = new Random();
                 int randomIndex = random.nextInt(lines.size());
-
-                // 랜덤 라인 반환
                 return lines.get(randomIndex);
             }
         } catch (IOException e) {
@@ -78,57 +76,27 @@ public class GiveSolve extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // 그라데이션 색상 설정
-        Color startColor = Color.decode("#B365FD"); // HEX 색상 #B365FD
-        Color endColor = Color.decode("#41116D");   // HEX 색상 #41116D
+        // 그라데이션 배경 설정
+        Color startColor = Color.decode("#B365FD");
+        Color endColor = Color.decode("#41116D");
         int width = getWidth();
         int height = getHeight();
-
-        // 세로 방향으로 그라데이션 적용
         GradientPaint gradient = new GradientPaint(0, 0, startColor, 0, height, endColor);
         g2d.setPaint(gradient);
-        g2d.fillRect(0, 0, width, height); // 그라데이션으로 배경 채우기
+        g2d.fillRect(0, 0, width, height);
 
-        // 첫 번째 이미지 그리기
-        if (image1 != null) {
-            int imgWidth = image1.getWidth();
-            int imgHeight = image1.getHeight();
-            int x = (width - imgWidth) / 2 + xOffset1; // 첫 번째 이미지의 x좌표 계산
-            int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-            g.drawImage(image1, x, y, this);
-        }
-
-        // 나머지 이미지 그리기
-        if (image2 != null) {
-            int imgWidth = image2.getWidth();
-            int imgHeight = image2.getHeight();
-            int x = (width - imgWidth) / 2 + xOffset2; // 두 번째 이미지의 x좌표 계산
-            int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-            g.drawImage(image2, x, y, this);
-        }
-
-        if (image3 != null) {
-            int imgWidth = image3.getWidth();
-            int imgHeight = image3.getHeight();
-            int x = (width - imgWidth) / 2 + xOffset3; // 세 번째 이미지의 x좌표 계산
-            int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-            g.drawImage(image3, x, y, this);
-        }
-
-        if (image4 != null) {
-            int imgWidth = image4.getWidth();
-            int imgHeight = image4.getHeight();
-            int x = (width - imgWidth) / 2 + xOffset4; // 네 번째 이미지의 x좌표 계산
-            int y = (height - imgHeight) / 2; // y좌표는 화면 중앙으로
-            g.drawImage(image4, x, y, this);
-        }
+        // 이미지 그리기
+        drawImage(g, image1, xOffset1, width, height);
+        drawImage(g, image2, xOffset2, width, height);
+        drawImage(g, image3, xOffset3, width, height);
+        drawImage(g, image4, xOffset4, width, height);
 
         // 다섯 번째 이미지 고정 위치에 그리기
         if (image5 != null) {
             int imgWidth = image5.getWidth();
             int imgHeight = image5.getHeight();
-            int x = 1420; // 다섯 번째 이미지의 x좌표
-            int y = 700;  // 다섯 번째 이미지의 y좌표
+            int x = 1420; // 고정 x좌표
+            int y = 700;  // 고정 y좌표
             g.drawImage(image5, x, y, this);
         }
 
@@ -144,15 +112,25 @@ public class GiveSolve extends JPanel {
         g.setColor(Color.WHITE);
         FontMetrics metrics = g.getFontMetrics();
         int textWidth = metrics.stringWidth(loveAdvice);
-        g.drawString(loveAdvice, (width - textWidth) / 2, height / 2); // 텍스트 중앙에 그리기
+        g.drawString(loveAdvice, (width - textWidth) / 2, height / 2);
+    }
+
+    private void drawImage(Graphics g, BufferedImage image, int xOffset, int width, int height) {
+        if (image != null) {
+            int imgWidth = image.getWidth();
+            int imgHeight = image.getHeight();
+            int x = (width - imgWidth) / 2 + xOffset;
+            int y = (height - imgHeight) / 2;
+            g.drawImage(image, x, y, this);
+        }
     }
 
     // Diary 화면으로 전환하는 메서드
     private void showDiaryScreen() {
-        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this); // 부모 프레임 찾기
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         if (topFrame instanceof Main) {
             Main mainFrame = (Main) topFrame;
-            mainFrame.showDiaryScreen(); // Diary 화면으로 전환
+            mainFrame.showDiaryScreen(); // Diary 화면 전환
         }
     }
 }
