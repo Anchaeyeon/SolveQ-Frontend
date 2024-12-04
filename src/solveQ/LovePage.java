@@ -53,6 +53,13 @@ public class LovePage extends JPanel {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (inputField != null && !inputField.getText().isEmpty()) {
+                    // 입력된 내용을 데이터베이스에 저장
+                    worryInsertdb.saveWorry(inputField.getText());
+                } else {
+                    JOptionPane.showMessageDialog(LovePage.this, "고민을 입력해 주세요.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+                }
+
                 // Main 클래스 인스턴스를 가져와서 화면 전환 호출
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(LovePage.this);
                 if (topFrame instanceof Main) {
@@ -146,7 +153,7 @@ public class LovePage extends JPanel {
             inputField.setLineWrap(true);
             inputField.setWrapStyleWord(true);
             inputField.setBackground(Color.WHITE);
-            inputField.setFont(new Font("Serif", Font.PLAIN, 20));
+            inputField.setFont(new Font("fonts/Pretendard-Bold.otf", Font.PLAIN, 20));
             inputField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             inputField.setBounds(280 + 10, 250 + 10, 954 - 20, 400 - 20);
 
