@@ -2,19 +2,32 @@ package src.solveQ;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class DiaryCover extends JPanel {
+    private Main mainFrame; // Main 인스턴스를 받아 화면 전환을 위해 사용
     private DiaryPanel diaryPanel; // DiaryPanel 인스턴스
 
-    public DiaryCover() {
+    public DiaryCover(Main mainFrame) {
+        this.mainFrame = mainFrame;
+
         // DiaryPanel 생성 및 추가
         diaryPanel = new DiaryPanel();
         this.setLayout(new BorderLayout());
         this.add(diaryPanel, BorderLayout.CENTER);
+
+        // 클릭 이벤트 처리 (마우스 리스너)
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // 클릭 시 GiveSolve 화면으로 전환
+                mainFrame.showGiveSolveScreen();
+            }
+        });
     }
 
     // DiaryPanel 클래스 정의
