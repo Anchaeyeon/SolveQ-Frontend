@@ -65,28 +65,25 @@ public class Diary extends JPanel {
         drawImage(g, image2, 768, 60, 0.8);
         drawImageWithStretch(g, image3, 767, 60, 1.0, 0.205);
         drawImage(g, image4, 1175, 90, 0.9);
-        drawImage(g, image5, 790, 450, 0.9);
-        drawImage(g, image6, 880, 445, 0.9);
-        drawImage(g, image5, 1185, 450, 0.9);
-        drawImage(g, image6, 1150, 445, 0.9);
 
         // 텍스트 그리기 (이미지 위에 표시)
         drawText(g, "나의 고민", 450, 260, 30);
         drawText(g, "해결책", 980, 260, 30);
 
-        // 'book_left' 이미지 위에 최신 조언 표시
-        if (latestAdvice != null) {
-            drawText(g, latestAdvice, 260, 140, 20); // 'book_left' 이미지 위에 텍스트 위치 조정
+        // 'book_left' 이미지 위에 최신 고민 표시
+        if (latestWorry != null) {
+            drawText(g, latestWorry, 300, 400, 20); // 'book_left' 이미지 위에 텍스트 위치 조정
         } else {
-            drawText(g, "최근 조언이 없습니다.", 260, 140, 20); // 위치 조정
+            drawText(g, "최근 고민이 없습니다.", 300, 400, 20); // 위치 조정
         }
 
-        // 'book_right' 이미지 위에 최신 고민 표시
-        if (latestWorry != null) {
-            drawText(g, latestWorry, 850, 140, 20); // 'book_right' 이미지 위에 텍스트 위치 조정
+        // 'book_right' 이미지 위에 최신 조언 표시
+        if (latestAdvice != null) {
+            drawText(g, latestAdvice, 900, 400, 20); // 'book_right' 이미지 위에 텍스트 위치 조정
         } else {
-            drawText(g, "최근 고민이 없습니다.", 850, 140, 20); // 위치 조정
+            drawText(g, "최근 조언이 없습니다.", 900, 400, 20); // 위치 조정
         }
+
     }
 
     private void drawImage(Graphics g, BufferedImage img, int x, int y, double scale) {
