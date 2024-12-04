@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Random;
 
-public class GiveOSolveOther {
+public class GiveSolveOther {
     public static void main(String[] args) {
         // 프레임 생성
         JFrame frame = new JFrame("GiveSolve 화면(기타)");
