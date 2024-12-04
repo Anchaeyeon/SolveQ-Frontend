@@ -1,11 +1,12 @@
 package src.solveQ;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.sql.SQLException;
 
 public class Diary extends JPanel {
     private BufferedImage image;
@@ -14,9 +15,15 @@ public class Diary extends JPanel {
     private BufferedImage image4;
     private BufferedImage image5;
     private BufferedImage image6;
-    private String latestWorry;
+    private String latestWorry; // 최신 고민 저장 변수
 
     public Diary() {
+        loadImages(); // 이미지 로딩 메서드 호출
+        updateLatestWorry(); // 최신 고민 불러오기
+    }
+
+    // 이미지 로딩 메서드
+    private void loadImages() {
         try {
             image = ImageIO.read(new File("img/DiaryLeft.png"));
             image2 = ImageIO.read(new File("img/DiaryRight.png"));
@@ -25,11 +32,15 @@ public class Diary extends JPanel {
             image5 = ImageIO.read(new File("img/Line2.png"));
             image6 = ImageIO.read(new File("img/round2.png"));
         } catch (IOException e) {
-            System.err.println("Image loading error: " + e.getMessage());
+            System.err.println("이미지 로딩 오류: " + e.getMessage());
             e.printStackTrace();
         }
-        // 최근 고민을 데이터베이스에서 가져오기
-        this.latestWorry = worryInsertdb.getLatestWorry();
+    }
+
+    // 최신 고민을 업데이트하는 메서드
+    public void updateLatestWorry() {
+        latestWorry = worryInsertdb.getLatestWorry(); // 데이터베이스에서 최신 고민 가져오기
+        // 필요 시 repaint() 호출을 외부에서 수행하도록 합니다.
     }
 
     @Override
@@ -40,6 +51,7 @@ public class Diary extends JPanel {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
+        // 이미지 그리기
         drawImage(g, image, 252, 60, 0.8);
         drawImage(g, image2, 768, 60, 0.8);
         drawImageWithStretch(g, image3, 767, 60, 1.0, 0.205);
@@ -49,13 +61,14 @@ public class Diary extends JPanel {
         drawImage(g, image5, 1185, 450, 0.9);
         drawImage(g, image6, 1150, 445, 0.9);
 
+        // 텍스트 그리기
         drawText(g, "나의 고민", 450, 260, 30);
         drawText(g, "해결책", 980, 260, 30);
 
         if (latestWorry != null) {
-            drawText(g, latestWorry, 450, 300, 20);
+            drawText(g, latestWorry, 460, 450, 30);
         } else {
-            drawText(g, "최근 고민이 없습니다.", 450, 300, 20);
+            drawText(g, "최근 고민이 없습니다.", 460, 450, 30);
         }
     }
 
@@ -80,14 +93,15 @@ public class Diary extends JPanel {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
             font = font.deriveFont(fontSize);
+            g.setColor(Color.decode("#7D20D4")); // 글씨 색깔 설정
         } catch (FontFormatException | IOException e) {
-            System.err.println("Font loading error: " + e.getMessage());
+            System.err.println("폰트 로딩 오류: " + e.getMessage());
             e.printStackTrace();
             font = new Font("Serif", Font.BOLD, (int) fontSize);
+            g.setColor(Color.decode("#7D20D4")); // 대체 색상
         }
 
         g.setFont(font);
-        g.setColor(Color.decode("#6B6B6B"));
         g.drawString(text, x, y);
     }
 }

@@ -7,24 +7,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class worryInsertdb {
+    // 데이터베이스 연결 정보
     private static final String URL = "jdbc:mysql://localhost:3306/mysql?useSSL=false";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "111111";
 
+    // 고민 저장 메서드
     public static void saveWorry(String worryContent) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println("JDBC Driver not found: " + e.getMessage());
+            System.err.println("JDBC 드라이버를 찾을 수 없습니다: " + e.getMessage());
             e.printStackTrace();
             return;
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             if (conn != null) {
-                System.out.println("Database 연결 성공");
-
-                String query = "insert into worryInsert (worry) values (?)";
+                String query = "INSERT INTO worryInsert (worry, created_at) VALUES (?, CURRENT_TIMESTAMP)";
                 try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                     pstmt.setString(1, worryContent);
                     int rowsAffected = pstmt.executeUpdate();
@@ -44,22 +44,21 @@ public class worryInsertdb {
         }
     }
 
+    // 가장 최근 고민 불러오기 메서드
     public static String getLatestWorry() {
         String latestWorry = null;
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println("JDBC Driver not found: " + e.getMessage());
+            System.err.println("JDBC 드라이버를 찾을 수 없습니다: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             if (conn != null) {
-                System.out.println("Database 연결 성공");
-
-                String query = "SELECT worry FROM worryInsert ORDER BY id DESC LIMIT 1";
+                // 가장 최근 고민을 시간 기준으로 정렬하여 가져오기
+                String query = "SELECT worry FROM worryInsert ORDER BY created_at DESC LIMIT 1";
                 try (PreparedStatement pstmt = conn.prepareStatement(query);
                      ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
