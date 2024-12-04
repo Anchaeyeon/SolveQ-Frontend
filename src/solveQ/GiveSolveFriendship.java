@@ -1,18 +1,20 @@
 package src.solveQ;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import java.nio.file.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Random;
-import javax.imageio.ImageIO;
 
-public class GiveSolve {
+public class GiveSolveFriendship {
     public static void main(String[] args) {
         // 프레임 생성
-        JFrame frame = new JFrame("GiveSolve 화면");
+        JFrame frame = new JFrame("GiveSolve 화면(우정)");
         frame.setSize(1920, 1080); // 프레임 크기
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 동작 설정
 
@@ -22,7 +24,7 @@ public class GiveSolve {
         frame.setVisible(true); // 프레임 출력
     }
 
-    // 그라데이션과 이미지를 그리는 커스텀 JPanel 클래스
+    // GiveSolveFriendship 전용 그라데이션과 이미지를 그리는 커스텀 JPanel 클래스
     static class GradientPanel extends JPanel {
         private BufferedImage image1; // 첫 번째 이미지
         private BufferedImage image2; // 두 번째 이미지
@@ -35,7 +37,7 @@ public class GiveSolve {
         private final int xOffset3 = 550;  // 세 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
         private final int xOffset4 = 440;  // 네 번째 이미지 오른쪽으로 이동할 오프셋 (양수값)
 
-        private String loveAdvice; // 랜덤 조언을 저장할 변수
+        private String friendshipAdvice; // 랜덤 조언을 저장할 변수
 
         public GradientPanel() {
             try {
@@ -46,11 +48,11 @@ public class GiveSolve {
                 image4 = ImageIO.read(new File("img/round.png"));
                 image5 = ImageIO.read(new File("img/plug.png"));
 
-                // 랜덤 조언 로드
-                loveAdvice = getRandomAdvice("keywordText/KeywordLove.txt");
+                // 랜덤 우정 조언 로드
+                friendshipAdvice = getRandomAdvice("keywordText/KeywordFriendship.txt");
             } catch (IOException e) {
                 e.printStackTrace();
-                loveAdvice = "사랑에 대한 조언을 불러오지 못했습니다.";
+                friendshipAdvice = "우정에 대한 조언을 불러오지 못했습니다.";
             }
         }
 
@@ -58,7 +60,7 @@ public class GiveSolve {
         private String getRandomAdvice(String filename) {
             try {
                 // 파일에서 모든 라인 읽기 (상대 경로 사용)
-                List<String> lines = Files.readAllLines(Paths.get(filename));  // "KeywordText/KeywordLove.txt" 파일 경로
+                List<String> lines = Files.readAllLines(Paths.get(filename));  // "KeywordText/KeywordFriendship.txt" 파일 경로
 
                 // 라인이 비어있지 않은지 확인
                 if (!lines.isEmpty()) {
@@ -91,7 +93,6 @@ public class GiveSolve {
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, width, height); // 그라데이션으로 배경 채우기
 
-            // 첫 번째 이미지 그리기
             if (image1 != null) {
                 int imgWidth = image1.getWidth();
                 int imgHeight = image1.getHeight();
@@ -136,7 +137,7 @@ public class GiveSolve {
                 g.drawImage(image5, x, y, this);
             }
 
-            // 랜덤 조언 텍스트 그리기
+            // 랜덤 우정 조언 텍스트 그리기
             try {
                 Font pretendardFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"))
                         .deriveFont(40f);
@@ -147,8 +148,8 @@ public class GiveSolve {
 
             g.setColor(Color.WHITE);
             FontMetrics metrics = g.getFontMetrics();
-            int textWidth = metrics.stringWidth(loveAdvice);
-            g.drawString(loveAdvice, (width - textWidth) / 2, height / 2); // 텍스트 중앙에 그리기
+            int textWidth = metrics.stringWidth(friendshipAdvice);
+            g.drawString(friendshipAdvice, (width - textWidth) / 2, height / 2); // 텍스트 중앙에 그리기
         }
     }
 }
