@@ -7,6 +7,7 @@ public class Main extends JFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
+    // 생성자
     public Main() {
         setTitle("SolveQ");
         setSize(1920, 1080); // 화면 크기 설정

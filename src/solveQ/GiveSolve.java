@@ -2,6 +2,8 @@ package src.solveQ;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.*;
 import java.io.*;
 import java.nio.file.*;
@@ -41,6 +43,15 @@ public class GiveSolve extends JPanel {
             e.printStackTrace();
             loveAdvice = "사랑에 대한 조언을 불러오지 못했습니다.";
         }
+
+        // 마우스 클릭 이벤트 처리 (버튼 없이 화면 클릭 시 DiaryCover 화면으로 전환)
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent evt) {
+                // 화면을 클릭했을 때 DiaryCover 화면으로 전환
+                ((Main) getRootPane().getParent()).showDiaryCoverScreen();
+            }
+        });
     }
 
     // 텍스트 파일에서 랜덤 조언을 가져오는 메서드
