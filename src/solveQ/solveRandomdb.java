@@ -13,7 +13,7 @@ public class solveRandomdb {
     private static final String DATABASE_PASSWORD = "111111"; // 비밀번호
 
     public void saveAdviceToDatabase(String advice) {
-        String sql = "INSERT INTO solveRandom (advice_text) VALUES (?)";
+        String sql = "insert into solveRandom (advice_text) values (?)";
 
         try (Connection conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -27,7 +27,7 @@ public class solveRandomdb {
 
     public String getLatestAdvice() {
         String latestAdvice = null;
-        String sql = "SELECT advice_text FROM solveRandom ORDER BY id DESC LIMIT 1";
+        String sql = "select advice_text from solveRandom order by id desc limit 1";
 
         try (Connection conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(sql);

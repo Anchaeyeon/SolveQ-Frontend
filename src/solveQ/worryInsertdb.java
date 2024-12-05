@@ -24,7 +24,7 @@ public class worryInsertdb {
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             if (conn != null) {
-                String query = "INSERT INTO worryInsert (worry) VALUES (?)";
+                String query = "insert into worryInsert (worry) values (?)";
                 try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                     pstmt.setString(1, worryContent);
                     int rowsAffected = pstmt.executeUpdate();
@@ -58,7 +58,7 @@ public class worryInsertdb {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             if (conn != null) {
                 // 가장 최근 고민을 id 기준으로 내림차순 정렬하여 가져오기
-                String query = "SELECT worry FROM worryInsert ORDER BY id DESC LIMIT 1";
+                String query = "select worry from worryInsert order by id desc limit 1";
                 try (PreparedStatement pstmt = conn.prepareStatement(query);
                      ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {

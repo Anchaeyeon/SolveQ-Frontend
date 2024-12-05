@@ -72,14 +72,14 @@ public class Diary extends JPanel {
 
         // 'book_left' 이미지 위에 최신 고민 표시
         if (latestWorry != null) {
-            drawText(g, latestWorry, 300, 400, 20); // 'book_left' 이미지 위에 텍스트 위치 조정
+            drawText(g, latestWorry, 400, 400, 20); // 'book_left' 이미지 위에 텍스트 위치 조정
         } else {
             drawText(g, "최근 고민이 없습니다.", 300, 400, 20); // 위치 조정
         }
 
         // 'book_right' 이미지 위에 최신 조언 표시
         if (latestAdvice != null) {
-            drawText(g, latestAdvice, 900, 400, 20); // 'book_right' 이미지 위에 텍스트 위치 조정
+            drawText(g, latestAdvice, 960, 400, 20); // 'book_right' 이미지 위에 텍스트 위치 조정
         } else {
             drawText(g, "최근 조언이 없습니다.", 900, 400, 20); // 위치 조정
         }
