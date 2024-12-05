@@ -61,8 +61,8 @@ public class Diary extends JPanel {
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         // 이미지 그리기
-        drawImage(g, image, 252, 60, 0.8);
-        drawImage(g, image2, 768, 60, 0.8);
+        drawImage(g, image, 252, 60, 0.8); // 'book_left' 이미지
+        drawImage(g, image2, 768, 60, 0.8); // 'book_right' 이미지
         drawImageWithStretch(g, image3, 767, 60, 1.0, 0.205);
         drawImage(g, image4, 1175, 90, 0.9);
 
@@ -72,18 +72,29 @@ public class Diary extends JPanel {
 
         // 'book_left' 이미지 위에 최신 고민 표시
         if (latestWorry != null) {
-            drawText(g, latestWorry, 400, 400, 20); // 'book_left' 이미지 위에 텍스트 위치 조정
+            drawCenteredText(g, latestWorry,
+                    252 + (int) (image.getWidth() * 0.8) / 2,
+                    60 + (int) (image.getHeight() * 0.8) / 2,
+                    25);
         } else {
-            drawText(g, "최근 고민이 없습니다.", 300, 400, 20); // 위치 조정
+            drawCenteredText(g, "최근 고민이 없습니다.",
+                    252 + (int) (image.getWidth() * 0.8) / 2,
+                    60 + (int) (image.getHeight() * 0.8) / 2,
+                    25);
         }
 
         // 'book_right' 이미지 위에 최신 조언 표시
         if (latestAdvice != null) {
-            drawText(g, latestAdvice, 960, 400, 20); // 'book_right' 이미지 위에 텍스트 위치 조정
+            drawCenteredText(g, latestAdvice,
+                    768 + (int) (image2.getWidth() * 0.8) / 2,
+                    60 + (int) (image2.getHeight() * 0.8) / 2,
+                    25);
         } else {
-            drawText(g, "최근 조언이 없습니다.", 900, 400, 20); // 위치 조정
+            drawCenteredText(g, "최근 조언이 없습니다.",
+                    768 + (int) (image2.getWidth() * 0.8) / 2,
+                    60 + (int) (image2.getHeight() * 0.8) / 2,
+                    25);
         }
-
     }
 
     private void drawImage(Graphics g, BufferedImage img, int x, int y, double scale) {
@@ -117,5 +128,30 @@ public class Diary extends JPanel {
 
         g.setFont(font);
         g.drawString(text, x, y);
+    }
+
+    private void drawCenteredText(Graphics g, String text, int centerX, int centerY, float fontSize) {
+        Font font;
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Pretendard-Bold.otf"));
+            font = font.deriveFont(fontSize);
+            g.setColor(Color.decode("#6B6B6B"));
+        } catch (FontFormatException | IOException e) {
+            System.err.println("폰트 로딩 오류: " + e.getMessage());
+            e.printStackTrace();
+            font = new Font("Serif", Font.BOLD, (int) fontSize);
+            g.setColor(Color.decode("#6B6B6B"));
+        }
+
+        g.setFont(font);
+        FontMetrics metrics = g.getFontMetrics(font);
+        int textWidth = metrics.stringWidth(text);
+        int textHeight = metrics.getHeight();
+
+        // 텍스트를 중심에 맞추기
+        int textX = centerX - textWidth / 2;
+        int textY = centerY + metrics.getAscent() / 2 - metrics.getDescent() / 2;
+
+        g.drawString(text, textX, textY);
     }
 }
